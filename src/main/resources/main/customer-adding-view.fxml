@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane prefHeight="640.0" prefWidth="604.0" stylesheets="@../css/table-screens.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.CustomerAddingController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="634.399951171875" minWidth="579.999951171875" prefWidth="599.200048828125" />
+        <ColumnConstraints maxWidth="1.0" minWidth="1.0" prefWidth="36.199951171875" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="ALWAYS" />
+    </rowConstraints>
+    <fx:include maxHeight="50.00" maxWidth="1.7976931348623157E308" source="menu-view-admin.fxml" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+
+    <GridPane hgap="8.0" vgap="8.0" GridPane.rowIndex="1">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
+        </rowConstraints>
+
+        <style>
+            -fx-padding: 8px;
+        </style>
+
+        <Label text="Customer add" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+            <style>
+                -fx-font-size: 18px;
+                -fx-font-weight: bold;
+            </style>
+        </Label>
+
+        <Label text="First name: " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+        <TextField fx:id="firstName" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Last name: " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+        <TextField fx:id="lastName" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Button onAction="#add" text="Add" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+
+        <TableView fx:id="customerTableView" prefHeight="368.0" prefWidth="586.4" GridPane.columnSpan="2" GridPane.rowIndex="6">
+            <columns>
+                <TableColumn fx:id="firstNameColumn" prefWidth="293.2" text="First name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="293.2" text="Last name" />
+            </columns>
+        </TableView>
+    </GridPane>
+</GridPane>
+

@@ -1,0 +1,4 @@
+Kupci
+Strip
+Rezervacija
+Izdavači

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.MenuViewAdminController">
+	<children>
+		<MenuBar maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="473.0" style="&#10;&#9;&#9;-fx-padding: 0;&#10;&#9;" stylesheets="@../css/menu.css">
+			<menus>
+				<Menu mnemonicParsing="false" text="Customer">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#openCustomerSearch" text="Search customers" />
+						<MenuItem mnemonicParsing="false" onAction="#openCustomerAdding" text="Add customer" />
+						<MenuItem mnemonicParsing="false" onAction="#openCustomerDeletion" text="Delete customer" />
+						<MenuItem mnemonicParsing="false" onAction="#openCustomerUpdate" text="Update customer" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Comic">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#openComicSearch" text="Search comic" />
+						<MenuItem mnemonicParsing="false" onAction="#openComicAdding" text="Add comic" />
+						<MenuItem mnemonicParsing="false" onAction="#openComicDeletion" text="Delete comic" />
+						<MenuItem mnemonicParsing="false" onAction="#openComicUpdate" text="Update comic" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Reservation">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#openReservationSearch" text="Search reservations" />
+						<MenuItem mnemonicParsing="false" onAction="#openReservationAdding" text="Add reservation" />
+						<MenuItem mnemonicParsing="false" onAction="#openReservationDeletion" text="Delete reservation" />
+						<MenuItem mnemonicParsing="false" onAction="#openReservationUpdate" text="Update reservation" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Users">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#openUserPasswordChange" text="Change user password" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+		<Label fx:id="appUser" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="130.0" stylesheets="@../css/menu.css" text="Label" />
+	</children>
+</HBox>
