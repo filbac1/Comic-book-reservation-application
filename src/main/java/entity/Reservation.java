@@ -3,12 +3,12 @@ package entity;
 import java.util.List;
 import java.util.Objects;
 
-public class Reservation {
+public class Reservation<T extends Customer, V extends Comic> {
     private Integer reservationID;
-    private Customer customer;
-    private Comic comic;
+    private T customer;
+    private V comic;
 
-    public Reservation(Integer reservationID, Customer customer, Comic comic) {
+    public Reservation(Integer reservationID, T customer, V comic) {
         this.reservationID = reservationID;
         this.customer = customer;
         this.comic = comic;
@@ -22,19 +22,19 @@ public class Reservation {
         this.reservationID = reservationID;
     }
 
-    public Customer getCustomer() {
+    public T getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(T customer) {
         this.customer = customer;
     }
 
-    public Comic getComic() {
+    public V getComic() {
         return comic;
     }
 
-    public void setComic(Comic comic) {
+    public void setComic(V comic) {
         this.comic = comic;
     }
 
@@ -42,7 +42,7 @@ public class Reservation {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Reservation that = (Reservation) o;
+        Reservation<?, ?> that = (Reservation<?, ?>) o;
         return Objects.equals(reservationID, that.reservationID) && Objects.equals(customer, that.customer) && Objects.equals(comic, that.comic);
     }
 

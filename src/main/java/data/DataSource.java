@@ -29,4 +29,6 @@ public interface DataSource {
 
     Optional<Comic> readComicWhereID (Integer ID);
     Optional<Customer> readCustomerWhereID (Integer ID);
+
+    void createReservationInDatabase(Reservation reservation);
 }

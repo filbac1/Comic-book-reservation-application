@@ -291,6 +291,19 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         return Optional.empty();
     }
 
+    private void createNewReservationInDatabase(Reservation reservation) {
+        try {
+            PreparedStatement customerUpdateStatement = connection.prepareStatement("INSERT INTO RESERVATION(CUSTOMER_ID, COMIC_ID) VALUES (?, ?)");
+
+            customerUpdateStatement.setInt(1, reservation.getCustomer().customerID());
+            customerUpdateStatement.setInt(2, reservation.getComic().getComicID());
+
+            customerUpdateStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public Set<User> readAllUsersFromFile() {
         return loadAllUsers();
@@ -355,7 +368,10 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         return readCustomerID(ID);
     }
 
-
+    @Override
+    public void createReservationInDatabase(Reservation reservation) {
+        createNewReservationInDatabase(reservation);
+    }
 
     @Override
     public void close() throws IOException {

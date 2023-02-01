@@ -59,8 +59,8 @@
 
         <TableView fx:id="reservationTableView" prefHeight="368.0" prefWidth="585" GridPane.columnSpan="2" GridPane.rowIndex="6">
             <columns>
-                <TableColumn fx:id="customerNameColumn" prefWidth="293.2" text="Customer name" />
-                <TableColumn fx:id="comicNameColumn" prefWidth="293.2" text="Comic name" />
+                <TableColumn fx:id="customerNameColumn" prefWidth="293.2" text="Customer" />
+                <TableColumn fx:id="comicNameColumn" prefWidth="293.2" text="Comic" />
             </columns>
         </TableView>
     </GridPane>
