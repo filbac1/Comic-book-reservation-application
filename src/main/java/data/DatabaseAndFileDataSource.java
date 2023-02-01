@@ -3,7 +3,6 @@ package data;
 import entity.*;
 import exception.DataSourceException;
 import javafx.scene.control.Alert;
-import main.controllers.ComicSearchController;
 
 import java.io.Closeable;
 import java.io.FileNotFoundException;
@@ -11,10 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.*;
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.Flow;
 
 public class DatabaseAndFileDataSource implements DataSource, Closeable {
     private static final Path USER_FILE = Path.of("dat/user.txt");
@@ -221,6 +217,80 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         }
     }
 
+    private List<Reservation> loadAllReservationsFromDatabase() {
+        List<Reservation> reservationList = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM RESERVATION");
+
+            while (resultSet.next()) {
+                Integer reservationID = resultSet.getInt("RESERVATION_ID");
+                Integer customerID = resultSet.getInt("CUSTOMER_ID");
+                Integer comicID = resultSet.getInt("COMIC_ID");
+
+                Customer customer = readCustomerWhereID(customerID).get();
+                Comic comic = readComicID(comicID).get();
+
+                Reservation helpingReservation = new Reservation(reservationID, customer, comic);
+                reservationList.add(helpingReservation);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return reservationList;
+    }
+
+    private Optional<Customer> readCustomerID(Integer ID) {
+        try {
+            PreparedStatement customerStatement = connection.prepareStatement("SELECT * FROM CUSTOMER WHERE CUSTOMER_ID = ?");
+            customerStatement.setInt(1, ID);
+
+            ResultSet resultSet = customerStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Integer customerID = resultSet.getInt("CUSTOMER_ID");
+                String firstName = resultSet.getString("FIRST_NAME");
+                String lastName = resultSet.getString("LAST_NAME");
+
+                Customer helpingCustomer = new Customer(customerID, firstName, lastName);
+                return Optional.of(helpingCustomer);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return Optional.empty();
+    }
+
+    private Optional<Comic> readComicID(Integer ID) {
+        try {
+            PreparedStatement comicStatement = connection.prepareStatement("SELECT * FROM COMIC WHERE COMIC_ID = ?");
+            comicStatement.setInt(1, ID);
+
+            ResultSet resultSet = comicStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Integer comicID = resultSet.getInt("COMIC_ID");
+                String stringISBN = resultSet.getString("ISBN");
+                String publisher = resultSet.getString("PUBLISHER");
+                String comicName = resultSet.getString("COMIC_NAME");
+
+                Publishers enumPublisher = publisherHelper(publisher);
+                ISBN<String> ISBN = new ISBN<>(stringISBN);
+
+                Comic helpingComic = new Comic(comicName, comicID, enumPublisher, ISBN);
+
+                return Optional.of(helpingComic);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return Optional.empty();
+    }
+
     @Override
     public Set<User> readAllUsersFromFile() {
         return loadAllUsers();
@@ -269,6 +339,23 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     public void updateComicInDatabase(Comic comic) {
         updateDataForComicInDatabase(comic);
     }
+
+    @Override
+    public List<Reservation> readAllReservationsFromDatabase() {
+        return loadAllReservationsFromDatabase();
+    }
+
+    @Override
+    public Optional<Comic> readComicWhereID(Integer ID) {
+        return readComicID(ID);
+    }
+
+    @Override
+    public Optional<Customer> readCustomerWhereID(Integer ID) {
+        return readCustomerID(ID);
+    }
+
+
 
     @Override
     public void close() throws IOException {

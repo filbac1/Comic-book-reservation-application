@@ -3,49 +3,60 @@ package entity;
 import java.util.List;
 import java.util.Objects;
 
-public class Reservation<T extends Customer, V extends Comic> {
-    private T customer;
-    private List<V> comics;
+public class Reservation {
+    private Integer reservationID;
+    private Customer customer;
+    private Comic comic;
 
-    public Reservation(T customer, List<V> comics) {
+    public Reservation(Integer reservationID, Customer customer, Comic comic) {
+        this.reservationID = reservationID;
         this.customer = customer;
-        this.comics = comics;
+        this.comic = comic;
     }
 
-    public T getCustomer() {
+    public Integer getReservationID() {
+        return reservationID;
+    }
+
+    public void setReservationID(Integer reservationID) {
+        this.reservationID = reservationID;
+    }
+
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(T customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public List<V> getComics() {
-        return comics;
+    public Comic getComic() {
+        return comic;
     }
 
-    public void setComics(List<V> comics) {
-        this.comics = comics;
+    public void setComic(Comic comic) {
+        this.comic = comic;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Reservation<?, ?> that = (Reservation<?, ?>) o;
-        return Objects.equals(customer, that.customer) && Objects.equals(comics, that.comics);
+        Reservation that = (Reservation) o;
+        return Objects.equals(reservationID, that.reservationID) && Objects.equals(customer, that.customer) && Objects.equals(comic, that.comic);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, comics);
+        return Objects.hash(reservationID, customer, comic);
     }
 
     @Override
     public String toString() {
         return "Reservation{" +
-                "customer=" + customer +
-                ", comics=" + comics +
+                "reservationID=" + reservationID +
+                ", customer=" + customer +
+                ", comic=" + comic +
                 '}';
     }
 }

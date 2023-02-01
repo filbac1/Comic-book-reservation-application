@@ -2,8 +2,8 @@ package data;
 
 import entity.*;
 
-import java.sql.ResultSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface DataSource {
@@ -24,4 +24,9 @@ public interface DataSource {
     void deleteComicInDatabase(Comic comic);
 
     void updateComicInDatabase(Comic comic);
+
+    List<Reservation> readAllReservationsFromDatabase();
+
+    Optional<Comic> readComicWhereID (Integer ID);
+    Optional<Customer> readCustomerWhereID (Integer ID);
 }

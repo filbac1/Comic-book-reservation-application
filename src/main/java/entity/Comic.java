@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Comic extends Book {
@@ -52,5 +54,10 @@ public class Comic extends Book {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), comicID, publisher, isbn);
+    }
+
+    @Override
+    public String toString() {
+        return bookName;
     }
 }

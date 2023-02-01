@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class Book {
 
-    private String bookName;
+    public String bookName;
 
     public Book(String bookName) {
         this.bookName = bookName;
