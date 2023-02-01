@@ -1,10 +1,9 @@
 package data;
 
-import entity.Customer;
-import entity.User;
-import entity.UserRole;
+import entity.*;
 import exception.DataSourceException;
 import javafx.scene.control.Alert;
+import main.controllers.ComicSearchController;
 
 import java.io.Closeable;
 import java.io.FileNotFoundException;
@@ -15,6 +14,7 @@ import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.Flow;
 
 public class DatabaseAndFileDataSource implements DataSource, Closeable {
     private static final Path USER_FILE = Path.of("dat/user.txt");
@@ -137,6 +137,90 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         }
     }
 
+    private List<Comic> loadAllComicsFromDatabase() {
+        List<Comic> comicList = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM COMIC");
+
+            while (resultSet.next()) {
+                Integer comicID = resultSet.getInt("COMIC_ID");
+                String stringISBN = resultSet.getString("ISBN");
+                String publisher = resultSet.getString("PUBLISHER");
+                String comicName = resultSet.getString("COMIC_NAME");
+
+                Publishers enumPublisher = publisherHelper(publisher);
+                ISBN<String> ISBN = new ISBN<>(stringISBN);
+
+                Comic helpingComic = new Comic(comicName, comicID, enumPublisher, ISBN);
+                comicList.add(helpingComic);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return comicList;
+
+    }
+
+    private Publishers publisherHelper(String publisher) {
+        for (Publishers p : Publishers.values()) {
+            if (publisher.compareTo(p.toString()) == 0) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private void createNewComicInDatabase(Comic comic) {
+        try {
+            PreparedStatement customerUpdateStatement = connection.prepareStatement("INSERT INTO COMIC(ISBN, PUBLISHER, COMIC_NAME) VALUES (?, ?, ?)");
+
+            customerUpdateStatement.setString(1, comic.getIsbn().getISBNNumber());
+            customerUpdateStatement.setString(2, comic.getPublisher().name());
+            customerUpdateStatement.setString(3, comic.getBookName());
+
+            customerUpdateStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void deleteOldComicInDatabase(Comic selectedComic) {
+        try {
+            PreparedStatement customerUpdateStatement = connection.prepareStatement("DELETE COMIC WHERE COMIC_ID = ? ");
+            customerUpdateStatement.setInt(1, selectedComic.getComicID());
+
+            try {
+                customerUpdateStatement.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+                var alert = new Alert(Alert.AlertType.ERROR, "Comic is connected to a reservation! Delete the reservation first!");
+                alert.setTitle("Error while trying to delete from database!");
+                alert.show();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updateDataForComicInDatabase(Comic comic) {
+        try {
+            PreparedStatement customerUpdateStatement = connection.prepareStatement("UPDATE COMIC SET ISBN = ?, PUBLISHER = ?, COMIC_NAME = ? WHERE COMIC_ID = ? ");
+
+            customerUpdateStatement.setString(1, comic.getIsbn().getISBNNumber());
+            customerUpdateStatement.setString(2, comic.getPublisher().name());
+            customerUpdateStatement.setString(3, comic.getBookName());
+            customerUpdateStatement.setInt(4, comic.getComicID());
+
+            customerUpdateStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public Set<User> readAllUsersFromFile() {
         return loadAllUsers();
@@ -164,6 +248,26 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     @Override
     public void deleteCustomerInDatabase(Customer customer) {
         deleteOldCustomerInDatabase(customer);
+    }
+
+    @Override
+    public List<Comic> readAllComicsFromDatabase() {
+        return loadAllComicsFromDatabase();
+    }
+
+    @Override
+    public void createComicInDatabase(Comic comic) {
+        createNewComicInDatabase(comic);
+    }
+
+    @Override
+    public void deleteComicInDatabase(Comic comic) {
+        deleteOldComicInDatabase(comic);
+    }
+
+    @Override
+    public void updateComicInDatabase(Comic comic) {
+        updateDataForComicInDatabase(comic);
     }
 
     @Override

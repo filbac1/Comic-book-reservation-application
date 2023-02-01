@@ -5,5 +5,7 @@ public enum Publishers {
     FIBRA,
     LIBELLUS,
     CRS,
-    STRIP_AGENT;
+    NONE,
+    STRIPAGENT;
+
 }

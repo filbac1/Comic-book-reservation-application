@@ -1,8 +1,6 @@
 package data;
 
-import entity.Customer;
-import entity.User;
-import entity.UserRole;
+import entity.*;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -18,4 +16,12 @@ public interface DataSource {
     void updateCustomerInDatabase(Customer customer);
 
     void deleteCustomerInDatabase(Customer customer);
+
+    List<Comic> readAllComicsFromDatabase();
+
+    void createComicInDatabase(Comic comic);
+
+    void deleteComicInDatabase(Comic comic);
+
+    void updateComicInDatabase(Comic comic);
 }

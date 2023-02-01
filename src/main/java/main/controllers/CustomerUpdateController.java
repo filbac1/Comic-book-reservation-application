@@ -50,18 +50,29 @@ public class CustomerUpdateController {
             messages.add("You didn't select a customer!");
         }
 
+        String firstNameDB, lastNameDB;
+
+        if (firstName.getText().isBlank()) {
+            firstNameDB = selectedCustomer.firstName();
+        } else {
+            firstNameDB = firstName.getText();
+        }
+
+        if (lastName.getText().isBlank()) {
+            lastNameDB = selectedCustomer.lastName();
+        } else {
+            lastNameDB = lastName.getText();
+        }
+
+        Customer customerDB = new Customer(selectedCustomer.customerID(), firstNameDB, lastNameDB);
+
         if (messages.size() == 0) {
             var confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Would you like to update selected person?");
 
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                HelloApplication.getDataSource().updateCustomerInDatabase(new Customer(
-                        selectedCustomer.customerID(),
-                        firstName.getText(),
-                        lastName.getText()
-                ));
-
+                HelloApplication.getDataSource().updateCustomerInDatabase(customerDB);
                 initialize();
         } else {
                 String allMessages = String.join("\n", messages);

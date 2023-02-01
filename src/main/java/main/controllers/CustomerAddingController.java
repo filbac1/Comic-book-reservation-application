@@ -43,11 +43,11 @@ public class CustomerAddingController {
         ArrayList<String> messages = new ArrayList<>();
 
         if (firstName.getText().isBlank()) {
-            messages.add("Polje JMBAG je prazno!");
+            messages.add("First name is empty!");
         }
 
         if (lastName.getText().isBlank()) {
-            messages.add("Polje ime je prazno!");
+            messages.add("Last name is empty!");
         }
 
         if (messages.size() == 0) {

@@ -1,12 +1,56 @@
 package entity;
 
+import java.util.Objects;
+
 public class Comic extends Book {
+
+    private Integer comicID;
 
     private Publishers publisher;
     private ISBN isbn;
 
-    public Comic(String bookName, Publishers publisher, ISBN isbn) {
+    public Comic(String bookName, Integer comicID, Publishers publisher, ISBN isbn) {
         super(bookName);
+        this.comicID = comicID;
+        this.publisher = publisher;
+        this.isbn = isbn;
+    }
 
+    public Integer getComicID() {
+        return comicID;
+    }
+
+    public void setComicID(Integer comicID) {
+        this.comicID = comicID;
+    }
+
+    public Publishers getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publishers publisher) {
+        this.publisher = publisher;
+    }
+
+    public ISBN getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(ISBN isbn) {
+        this.isbn = isbn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Comic comic = (Comic) o;
+        return Objects.equals(comicID, comic.comicID) && publisher == comic.publisher && Objects.equals(isbn, comic.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), comicID, publisher, isbn);
     }
 }
