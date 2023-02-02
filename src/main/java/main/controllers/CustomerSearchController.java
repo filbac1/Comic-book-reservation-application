@@ -1,6 +1,7 @@
 package main.controllers;
 
 import entity.Customer;
+import entity.User;
 import exception.DataSourceException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerSearchController {
+
     @FXML
     private TextField firstName;
     @FXML

@@ -1,6 +1,8 @@
 package main.controllers;
 
+import entity.Change;
 import entity.Customer;
+import entity.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -10,11 +12,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.HelloApplication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CustomerDeletionController {
+    User currentUser = User.getUserInstance();
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
 
     @FXML
     private TableView<Customer> customerTableView;
@@ -51,6 +56,18 @@ public class CustomerDeletionController {
 
             if (result.get() == ButtonType.OK) {
                 HelloApplication.getDataSource().deleteCustomerInDatabase(selectedCustomer);
+
+                if (!HelloApplication.getDataSource().customerConnectedToReservation(selectedCustomer)) {
+
+                    Change changeOne = new Change("firstName", selectedCustomer.firstName(), null, helperUser, LocalDateTime.now());
+                    Change changeTwo = new Change("lastName", selectedCustomer.lastName(), null, helperUser, LocalDateTime.now());
+
+                    List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+                    changeList.add(changeOne);
+                    changeList.add(changeTwo);
+                    HelloApplication.getDataSource().writeChanges(changeList);
+                }
+
                 initialize();
             } else {
                 String allMessages = String.join("\n", messages);

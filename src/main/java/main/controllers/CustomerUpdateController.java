@@ -1,6 +1,8 @@
 package main.controllers;
 
+import entity.Change;
 import entity.Customer;
+import entity.User;
 import exception.DataSourceException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -9,11 +11,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.HelloApplication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CustomerUpdateController {
+    User currentUser = User.getUserInstance();
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
     @FXML
     private TextField firstName;
     @FXML
@@ -72,7 +77,20 @@ public class CustomerUpdateController {
 
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.get() == ButtonType.OK) {
+                Customer changeHelperCustomer = new Customer(selectedCustomer.customerID(), selectedCustomer.firstName(), selectedCustomer.lastName());
+
                 HelloApplication.getDataSource().updateCustomerInDatabase(customerDB);
+
+                if (!HelloApplication.getDataSource().customerConnectedToReservation(customerDB)) {
+                    Change changeOne = new Change("firstName", selectedCustomer.firstName(), customerDB.firstName(), helperUser, LocalDateTime.now());
+                    Change changeTwo = new Change("lastName", selectedCustomer.lastName(), customerDB.lastName(), helperUser, LocalDateTime.now());
+
+                    List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+                    changeList.add(changeOne);
+                    changeList.add(changeTwo);
+                    HelloApplication.getDataSource().writeChanges(changeList);
+                }
+
                 initialize();
         } else {
                 String allMessages = String.join("\n", messages);

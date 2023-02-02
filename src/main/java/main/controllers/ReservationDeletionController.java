@@ -1,8 +1,6 @@
 package main.controllers;
 
-import entity.Comic;
-import entity.Customer;
-import entity.Reservation;
+import entity.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -13,11 +11,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.HelloApplication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ReservationDeletionController {
+    User currentUser = User.getUserInstance();
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
 
     @FXML
     private TableView<Reservation> reservationTableView;
@@ -58,6 +59,15 @@ public class ReservationDeletionController {
 
             if (result.get() == ButtonType.OK) {
                 HelloApplication.getDataSource().deleteReservationInDatabase(selectedReservation);
+
+                Change changeOne = new Change("reservationCustomer", selectedReservation.getCustomer().toString(), null, helperUser, LocalDateTime.now());
+                Change changeTwo = new Change("reservationComic", selectedReservation.getComic().getBookName(), null, helperUser, LocalDateTime.now());
+
+                List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+                changeList.add(changeOne);
+                changeList.add(changeTwo);
+                HelloApplication.getDataSource().writeChanges(changeList);
+
                 initialize();
             } else {
                 String allMessages = String.join("\n", messages);

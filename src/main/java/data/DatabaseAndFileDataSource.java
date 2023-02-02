@@ -8,12 +8,18 @@ import java.io.Closeable;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DatabaseAndFileDataSource implements DataSource, Closeable {
     private static final Path USER_FILE = Path.of("dat/user.txt");
+    private static final Path CHANGES_FILE = Path.of("dat/changes.dat");
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("d.M.yyyy. H:mm");
     private final Connection connection;
 
     public DatabaseAndFileDataSource() throws DataSourceException, IOException {
@@ -30,6 +36,8 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
             throw new DataSourceException(e);
         }
     }
+
+    // FILE FUNCTIONS
 
     public UserRole userStringCompare(String role) {
         if (role.equals("ADMINISTRATION_ROLE")) {
@@ -55,7 +63,6 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
                 UserRole role = userRoleDetector(fields[3]);
 
                 User user = new User(id, username, password, role);
-                System.out.println(user);
                 userSet.add(user);
             }
         } catch (FileNotFoundException e) {
@@ -66,6 +73,63 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         return userSet;
     }
 
+    @Override
+    public List<Change> loadAllChanges() {
+        Path changeFile = CHANGES_FILE;
+        List<Change> changeList = new ArrayList<>();
+
+        try (Scanner scanner = new Scanner(changeFile)) {
+            while (scanner.hasNextLine()) {
+                String[] fields = scanner.nextLine().split(";");
+
+                String objectChanged = String.valueOf(fields[0]);
+                String oldValue = String.valueOf(fields[1]);
+                String newValue = String.valueOf(fields[2]);
+                User user = getUserFromField(fields[3]);
+                LocalDateTime localDateTime = LocalDateTime.parse(fields[4], DATE_TIME_FORMAT);
+
+                Change change = new Change(objectChanged, oldValue, newValue, user, localDateTime);
+                changeList.add(change);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + changeFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return changeList;
+    }
+
+    private User getUserFromField(String field) {
+        Set<User> userSet = loadAllUsers();
+        List<User> userList = new ArrayList<>(userSet);
+
+        for (User u : userList) {
+            if (u.getId().toString().equals(field)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void writeChanges(List<Change> changeList) {
+        var out = changeList.stream()
+                .map(p -> "%s;%s;%s;%s;%s".formatted(
+                        p.getObjectChanged(),
+                        p.getOldValue(),
+                        p.getNewValue(),
+                        p.getUser().toString(),
+                        p.getLocalDateTime().format(DATE_TIME_FORMAT)
+                )).collect(Collectors.joining("\n"));
+
+        try {
+            Files.writeString(CHANGES_FILE, out);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // DATABASE FUNCTIONS
     public List<Customer> loadAllCustomersFromDatabase() {
         List<Customer> customerList = new ArrayList<>();
 
@@ -414,6 +478,32 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     @Override
     public void updateReservationInDatabase(Reservation reservation) {
         updateDataForReservationInDatabase(reservation);
+    }
+
+    @Override
+    public boolean comicConnectedToReservation(Comic comic) {
+        List<Reservation> reservationList = loadAllReservationsFromDatabase();
+
+        for (Reservation r : reservationList) {
+            if (r.getComic().getComicID().equals(comic.getComicID())) {
+                System.out.println("Isti comic ID!");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean customerConnectedToReservation(Customer customer) {
+        List<Reservation> reservationList = loadAllReservationsFromDatabase();
+
+        for (Reservation r : reservationList) {
+            if (r.getCustomer().customerID().equals(customer.customerID())) {
+                System.out.println("Isti customer ID!");
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

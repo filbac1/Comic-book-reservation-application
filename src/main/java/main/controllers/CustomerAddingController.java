@@ -1,6 +1,8 @@
 package main.controllers;
 
+import entity.Change;
 import entity.Customer;
+import entity.User;
 import exception.DataSourceException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,10 +13,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import main.HelloApplication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAddingController {
+
+    User currentUser = User.getUserInstance();
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
 
     @FXML
     private TextField firstName;
@@ -56,6 +62,15 @@ public class CustomerAddingController {
                     firstName.getText(),
                     lastName.getText())
             );
+
+            Change changeOne = new Change("firstName", null, firstName.getText(), helperUser, LocalDateTime.now());
+            Change changeTwo = new Change("lastName", null, lastName.getText(), helperUser, LocalDateTime.now());
+
+            List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+            changeList.add(changeOne);
+            changeList.add(changeTwo);
+            HelloApplication.getDataSource().writeChanges(changeList);
+
         } else {
             String m = String.join("\n", messages);
 

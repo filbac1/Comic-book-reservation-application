@@ -15,8 +15,7 @@ public final class User implements UserReader {
         return userInstance;
     }
 
-    public User() {
-    }
+    public User() {}
 
     public User(Long id, String username, String password, UserRole role) {
         this.id = id;
@@ -72,12 +71,7 @@ public final class User implements UserReader {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
+        return id.toString();
     }
 
 

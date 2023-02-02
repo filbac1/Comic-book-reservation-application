@@ -7,6 +7,10 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface DataSource {
+    List<Change> loadAllChanges();
+
+    void writeChanges(List<Change> changeList);
+
     Set<User> readAllUsersFromFile();
     UserRole userRoleDetector(String role);
 
@@ -35,4 +39,7 @@ public interface DataSource {
     void deleteReservationInDatabase(Reservation reservation);
 
     void updateReservationInDatabase(Reservation reservation);
+
+    boolean comicConnectedToReservation(Comic comic);
+    boolean customerConnectedToReservation(Customer customer);
 }

@@ -11,6 +11,8 @@ import main.HelloApplication;
 public class MenuViewAdminController {
 
     User currentUser = User.getUserInstance();
+
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
     @FXML
     private Label appUser;
 
@@ -68,13 +70,22 @@ public class MenuViewAdminController {
     }
 
     public void openUserPasswordChange() {
-        if (currentUser.getRole().equals(UserRole.ADMINISTRATION_ROLE)) {
-            HelloApplication.showWindow("user-password-change-view");
+        if (helperUser.getRole().equals(UserRole.ADMINISTRATION_ROLE)) {
+            HelloApplication.showWindow("user-password-change-view.fxml");
         } else {
             var alert = new Alert(Alert.AlertType.ERROR, "Only admin");
             alert.setTitle("Error while logging in the application!");
             alert.show();
         }
+    }
 
+    public void openUserChangeTracker() {
+        if (helperUser.getRole().equals(UserRole.ADMINISTRATION_ROLE)) {
+            HelloApplication.showWindow("user-change-tracker-view.fxml");
+        } else {
+            var alert = new Alert(Alert.AlertType.ERROR, "Only admin");
+            alert.setTitle("Error while logging in the application!");
+            alert.show();
+        }
     }
 }

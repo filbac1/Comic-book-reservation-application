@@ -1,19 +1,20 @@
 package main.controllers;
 
-import entity.Comic;
-import entity.ISBN;
-import entity.Publishers;
+import entity.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.HelloApplication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ComicAddingController {
+    User currentUser = User.getUserInstance();
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
     @FXML
     private TextField comicName;
     @FXML
@@ -70,6 +71,16 @@ public class ComicAddingController {
                     pickedPublisher.getValue(),
                     ISBNString)
             );
+
+            Change changeOne = new Change("comicName", null, comicName.getText(), helperUser, LocalDateTime.now());
+            Change changeTwo = new Change("pickedPublisher", null, pickedPublisher.getValue(), helperUser, LocalDateTime.now());
+            Change changeThree = new Change("ISBN", null, ISBN.getText(), helperUser, LocalDateTime.now());
+
+            List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+            changeList.add(changeOne);
+            changeList.add(changeTwo);
+            changeList.add(changeThree);
+            HelloApplication.getDataSource().writeChanges(changeList);
         } else {
             String m = String.join("\n", messages);
 

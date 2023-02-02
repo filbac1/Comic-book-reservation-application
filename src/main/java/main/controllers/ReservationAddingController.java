@@ -1,18 +1,19 @@
 package main.controllers;
 
-import entity.Comic;
-import entity.Customer;
-import entity.Reservation;
+import entity.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.HelloApplication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationAddingController {
+    User currentUser = User.getUserInstance();
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
     @FXML
     private ChoiceBox<Customer> pickedCustomer;
     @FXML
@@ -61,6 +62,15 @@ public class ReservationAddingController {
                     pickedCustomer.getValue(),
                     comicsList.getValue())
             );
+            Change changeOne = new Change("reservationCustomer", null, pickedCustomer.getValue(), helperUser, LocalDateTime.now());
+            Change changeTwo = new Change("reservationComic", null, comicsList.getValue(), helperUser, LocalDateTime.now());
+
+            List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+            changeList.add(changeOne);
+            changeList.add(changeTwo);
+            HelloApplication.getDataSource().writeChanges(changeList);
+
+            initialize();
         } else {
             String m = String.join("\n", messages);
 
@@ -68,7 +78,5 @@ public class ReservationAddingController {
             alert.setTitle("Error while adding a new reservation!");
             alert.show();
         }
-
-        initialize();
     }
 }

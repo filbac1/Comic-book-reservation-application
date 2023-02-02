@@ -34,9 +34,10 @@
 						<MenuItem mnemonicParsing="false" onAction="#openReservationUpdate" text="Update reservation" />
 					</items>
 				</Menu>
-				<Menu mnemonicParsing="false" text="Users">
+				<Menu mnemonicParsing="false" text="User">
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#openUserPasswordChange" text="Change user password" />
+						<MenuItem mnemonicParsing="false" onAction="#openUserChangeTracker" text="Change tracker" />
 					</items>
 				</Menu>
 			</menus>

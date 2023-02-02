@@ -8,11 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.HelloApplication;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ReservationUpdateController {
+    User currentUser = User.getUserInstance();
+    User helperUser = new User(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole());
 
     @FXML
     private ChoiceBox<Customer> pickedCustomer;
@@ -81,6 +84,15 @@ public class ReservationUpdateController {
 
             if (result.get() == ButtonType.OK) {
                 HelloApplication.getDataSource().updateReservationInDatabase(reservationForDatabase);
+
+                Change changeOne = new Change("reservationCustomer", selectedReservation.getCustomer(), customerDB, helperUser, LocalDateTime.now());
+                Change changeTwo = new Change("reservationComic", selectedReservation.getComic(), comicDB, helperUser, LocalDateTime.now());
+
+                List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+                changeList.add(changeOne);
+                changeList.add(changeTwo);
+                HelloApplication.getDataSource().writeChanges(changeList);
+
                 initialize();
             }
         } else {

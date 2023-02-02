@@ -3,6 +3,7 @@ package main.controllers;
 import entity.Comic;
 import entity.Customer;
 import entity.Reservation;
+import entity.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
