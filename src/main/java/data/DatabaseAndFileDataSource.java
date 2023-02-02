@@ -171,13 +171,13 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
 
     private void createNewComicInDatabase(Comic comic) {
         try {
-            PreparedStatement customerUpdateStatement = connection.prepareStatement("INSERT INTO COMIC(ISBN, PUBLISHER, COMIC_NAME) VALUES (?, ?, ?)");
+            PreparedStatement comicUpdateStatement = connection.prepareStatement("INSERT INTO COMIC(ISBN, PUBLISHER, COMIC_NAME) VALUES (?, ?, ?)");
 
-            customerUpdateStatement.setString(1, comic.getIsbn().getISBNNumber());
-            customerUpdateStatement.setString(2, comic.getPublisher().name());
-            customerUpdateStatement.setString(3, comic.getBookName());
+            comicUpdateStatement.setString(1, comic.getIsbn().getISBNNumber());
+            comicUpdateStatement.setString(2, comic.getPublisher().name());
+            comicUpdateStatement.setString(3, comic.getBookName());
 
-            customerUpdateStatement.executeUpdate();
+            comicUpdateStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -185,11 +185,11 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
 
     private void deleteOldComicInDatabase(Comic selectedComic) {
         try {
-            PreparedStatement customerUpdateStatement = connection.prepareStatement("DELETE COMIC WHERE COMIC_ID = ? ");
-            customerUpdateStatement.setInt(1, selectedComic.getComicID());
+            PreparedStatement comicUpdateStatement = connection.prepareStatement("DELETE COMIC WHERE COMIC_ID = ? ");
+            comicUpdateStatement.setInt(1, selectedComic.getComicID());
 
             try {
-                customerUpdateStatement.executeUpdate();
+                comicUpdateStatement.executeUpdate();
             } catch (Exception e) {
                 e.printStackTrace();
                 var alert = new Alert(Alert.AlertType.ERROR, "Comic is connected to a reservation! Delete the reservation first!");
@@ -203,14 +203,14 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
 
     private void updateDataForComicInDatabase(Comic comic) {
         try {
-            PreparedStatement customerUpdateStatement = connection.prepareStatement("UPDATE COMIC SET ISBN = ?, PUBLISHER = ?, COMIC_NAME = ? WHERE COMIC_ID = ? ");
+            PreparedStatement comicUpdateStatement = connection.prepareStatement("UPDATE COMIC SET ISBN = ?, PUBLISHER = ?, COMIC_NAME = ? WHERE COMIC_ID = ? ");
 
-            customerUpdateStatement.setString(1, comic.getIsbn().getISBNNumber());
-            customerUpdateStatement.setString(2, comic.getPublisher().name());
-            customerUpdateStatement.setString(3, comic.getBookName());
-            customerUpdateStatement.setInt(4, comic.getComicID());
+            comicUpdateStatement.setString(1, comic.getIsbn().getISBNNumber());
+            comicUpdateStatement.setString(2, comic.getPublisher().name());
+            comicUpdateStatement.setString(3, comic.getBookName());
+            comicUpdateStatement.setInt(4, comic.getComicID());
 
-            customerUpdateStatement.executeUpdate();
+            comicUpdateStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -293,12 +293,45 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
 
     private void createNewReservationInDatabase(Reservation reservation) {
         try {
-            PreparedStatement customerUpdateStatement = connection.prepareStatement("INSERT INTO RESERVATION(CUSTOMER_ID, COMIC_ID) VALUES (?, ?)");
+            PreparedStatement reservationUpdateStatement = connection.prepareStatement("INSERT INTO RESERVATION(CUSTOMER_ID, COMIC_ID) VALUES (?, ?)");
 
-            customerUpdateStatement.setInt(1, reservation.getCustomer().customerID());
-            customerUpdateStatement.setInt(2, reservation.getComic().getComicID());
+            reservationUpdateStatement.setInt(1, reservation.getCustomer().customerID());
+            reservationUpdateStatement.setInt(2, reservation.getComic().getComicID());
 
-            customerUpdateStatement.executeUpdate();
+            reservationUpdateStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void deleteOldReservationInDatabase(Reservation selectedReservation) {
+        try {
+            PreparedStatement reservationUpdateStatement = connection.prepareStatement("DELETE RESERVATION WHERE RESERVATION_ID = ? ");
+            reservationUpdateStatement.setInt(1, selectedReservation.getReservationID());
+
+            try {
+                reservationUpdateStatement.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+                var alert = new Alert(Alert.AlertType.ERROR, "Fatal error");
+                alert.setTitle("Error while trying to delete reservation from database!");
+                alert.show();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updateDataForReservationInDatabase(Reservation reservation) {
+        try {
+            PreparedStatement reservationUpdateStatement = connection.prepareStatement("UPDATE RESERVATION SET CUSTOMER_ID = ?, COMIC_ID = ? WHERE RESERVATION_ID = ? ");
+
+            reservationUpdateStatement.setInt(1, reservation.getCustomer().customerID());
+            reservationUpdateStatement.setInt(2, reservation.getComic().getComicID());
+            reservationUpdateStatement.setInt(3, reservation.getReservationID());
+
+            reservationUpdateStatement.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -371,6 +404,16 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     @Override
     public void createReservationInDatabase(Reservation reservation) {
         createNewReservationInDatabase(reservation);
+    }
+
+    @Override
+    public void deleteReservationInDatabase(Reservation reservation) {
+        deleteOldReservationInDatabase(reservation);
+    }
+
+    @Override
+    public void updateReservationInDatabase(Reservation reservation) {
+        updateDataForReservationInDatabase(reservation);
     }
 
     @Override

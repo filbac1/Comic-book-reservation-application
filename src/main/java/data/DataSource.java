@@ -31,4 +31,8 @@ public interface DataSource {
     Optional<Customer> readCustomerWhereID (Integer ID);
 
     void createReservationInDatabase(Reservation reservation);
+
+    void deleteReservationInDatabase(Reservation reservation);
+
+    void updateReservationInDatabase(Reservation reservation);
 }
