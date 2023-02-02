@@ -2,7 +2,9 @@ package data;
 
 import entity.*;
 import exception.DataSourceException;
+import exception.MapDoesNotExistException;
 import javafx.scene.control.Alert;
+import main.controllers.ReservationSearchController;
 
 import java.io.Closeable;
 import java.io.FileNotFoundException;
@@ -21,6 +23,8 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     private static final Path CHANGES_FILE = Path.of("dat/changes.dat");
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("d.M.yyyy. H:mm");
     private final Connection connection;
+
+    private static final ReservationSearchController reservationSearchController = new ReservationSearchController();
 
     public DatabaseAndFileDataSource() throws DataSourceException, IOException {
         Properties properties = new Properties();
@@ -513,6 +517,31 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         } catch (SQLException nothing) {
 
         }
+    }
+    @Override
+    public synchronized Map<Integer, Integer> getNumberOfComics() throws MapDoesNotExistException {
+        List<Reservation> reservationList = readAllReservationsFromDatabase();
+        Map<Integer, Integer> comicNumberMap = new HashMap<>();
+        Integer numberOfComics;
+
+        try {
+            for (int i = 0; i < reservationList.size(); i++) {
+                if (comicNumberMap.containsValue(reservationList.get(i).getComic().getComicID())) {
+                    numberOfComics = comicNumberMap.get(reservationList.get(i).getComic().getComicID());
+                    ++numberOfComics;
+                    comicNumberMap.put(reservationList.get(i).getComic().getComicID(), numberOfComics);
+                } else {
+                    comicNumberMap.put(reservationList.get(i).getComic().getComicID(), 1);
+                }
+            }
+            return comicNumberMap;
+        } catch (Exception e) {
+            throw new MapDoesNotExistException("There is a problem with this map!");
+        }
+    }
+    @Override
+    public ReservationSearchController getReservationSearchController() {
+        return reservationSearchController;
     }
 }
 

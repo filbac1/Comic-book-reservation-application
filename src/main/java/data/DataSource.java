@@ -1,8 +1,11 @@
 package data;
 
 import entity.*;
+import exception.MapDoesNotExistException;
+import main.controllers.ReservationSearchController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -42,4 +45,8 @@ public interface DataSource {
 
     boolean comicConnectedToReservation(Comic comic);
     boolean customerConnectedToReservation(Customer customer);
+
+    Map<Integer, Integer> getNumberOfComics() throws MapDoesNotExistException;
+
+    ReservationSearchController getReservationSearchController();
 }

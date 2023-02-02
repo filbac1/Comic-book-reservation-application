@@ -6,3 +6,25 @@ reservationCustomer;Antimon Pantimon;null;1;2.2.2023. 12:11
 reservationComic;FFF;null;1;2.2.2023. 12:11
 reservationCustomer;Filip Bačić;Filip Bačić;1;2.2.2023. 12:11
 reservationComic;ZAGOR 9 ;ZAGOR 18;1;2.2.2023. 12:11
+comicName;ZAGOR 18;ZAGOR 18;1;2.2.2023. 18:47
+pickedPublisher;LIBELLUS;STRIPAGENT;1;2.2.2023. 18:47
+ISBN;5465646;5465646;1;2.2.2023. 18:47
+comicName;ZAGOR 18;ZAGOR 18;1;2.2.2023. 18:47
+pickedPublisher;STRIPAGENT;LUDENS;1;2.2.2023. 18:47
+ISBN;5465646;5465646;1;2.2.2023. 18:47
+reservationCustomer;null;Ana Nana;1;2.2.2023. 18:47
+reservationComic;null;FFF;1;2.2.2023. 18:47
+reservationCustomer;Ana Nana;null;1;2.2.2023. 18:48
+reservationComic;FFF;null;1;2.2.2023. 18:48
+reservationCustomer;null;Antimon Pantimon;1;2.2.2023. 18:48
+reservationComic;null;FFF;1;2.2.2023. 18:48
+reservationCustomer;Antimon Pantimon;null;1;2.2.2023. 19:22
+reservationComic;FFF;null;1;2.2.2023. 19:22
+reservationCustomer;Antimon Pantimon;null;1;2.2.2023. 19:22
+reservationComic;ZAGOR 9 ;null;1;2.2.2023. 19:22
+reservationCustomer;null;Antimon Pantimon;1;2.2.2023. 19:34
+reservationComic;null;ZAGOR 9 ;1;2.2.2023. 19:34
+reservationCustomer;null;t T;1;2.2.2023. 19:34
+reservationComic;null;FFF;1;2.2.2023. 19:34
+reservationCustomer;null;BA B;1;2.2.2023. 19:34
+reservationComic;null;FFF;1;2.2.2023. 19:34

@@ -3,14 +3,20 @@ package main;
 import data.DataSource;
 import data.DatabaseAndFileDataSource;
 import exception.DataSourceException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import thread.ComicQuantityReservedThread;
+import thread.NumberOfComicsReservedThread;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -33,6 +39,20 @@ public class HelloApplication extends Application {
         stage.getIcons().add(new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk568zyCAqXIBVMh97rz1n76eH1IH5K6etYg&usqp=CAU"));
         stage.setScene(scene);
         stage.show();
+
+        var randomComicInfo = new Timeline(
+                new KeyFrame(Duration.seconds(4), e -> Platform.runLater(new ComicQuantityReservedThread(stage)))
+        );
+
+        randomComicInfo.setCycleCount(Timeline.INDEFINITE);
+        randomComicInfo.play();
+
+        var randomComicAlert = new Timeline(
+                new KeyFrame(Duration.seconds(60), e -> Platform.runLater(new NumberOfComicsReservedThread()))
+        );
+
+        randomComicAlert.setCycleCount(Timeline.INDEFINITE);
+        randomComicAlert.play();
     }
 
     public static void main(String[] args) {

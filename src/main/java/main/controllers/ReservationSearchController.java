@@ -16,6 +16,8 @@ import java.util.List;
 public class ReservationSearchController {
 
     @FXML
+    private Label tableInfo;
+    @FXML
     private ChoiceBox<Customer> pickedCustomer;
     @FXML
     private ComboBox<Comic> comicsList;
@@ -69,4 +71,5 @@ public class ReservationSearchController {
 
         reservationTableView.setItems(FXCollections.observableList(filtered));
     }
+
 }
