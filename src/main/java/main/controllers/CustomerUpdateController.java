@@ -43,6 +43,10 @@ public class CustomerUpdateController {
         customerTableView.getSortOrder().addAll(lastNameColumn, firstNameColumn);
     }
 
+    /**
+     * Set of actions performed when user updates Customer in DB
+     */
+
     public void update() {
         Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
 

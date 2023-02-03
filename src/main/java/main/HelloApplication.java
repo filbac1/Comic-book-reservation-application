@@ -82,6 +82,10 @@ public class HelloApplication extends Application {
         return dataSource;
     }
 
+    /**
+     * Function that makes it easier to display FXML file throughout the whole application
+     * @param resourcePath
+     */
     public static void showWindow(String resourcePath) {
         try {
             var window = (Parent) FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(resourcePath)));

@@ -76,11 +76,23 @@ public class Change<T> {
         return objectChanged + " " + oldValue + " " + newValue + " " + user + " " + localDateTime;
     }
 
+    /**
+     * Sets object that changed (builder pattern)
+     * @param obj
+     * @return Change
+     */
+
     public Change setObjectChangedBuilder(T obj)
     {
         this.objectChanged = obj;
         return this;
     }
+
+    /**
+     * Sets old value of object (builder pattern)
+     * @param obj
+     * @return Change
+     */
 
     public Change setOldValueBuilder(T obj)
     {
@@ -88,17 +100,35 @@ public class Change<T> {
         return this;
     }
 
+    /**
+     * Sets new value of change (builder pattern)
+     * @param obj
+     * @return Change
+     */
+
     public Change setNewValueBuilder(T obj)
     {
         this.newValue = obj;
         return this;
     }
 
+    /**
+     * Sets which user made the change (builder pattern)
+     * @param obj
+     * @return Change
+     */
+
     public Change setUserWhoChangedBuilder(User obj)
     {
         this.user = obj;
         return this;
     }
+
+    /**
+     * Sets time of made change (builder pattern)
+     * @param obj
+     * @return Change
+     */
 
     public Change setLocalDateTimeBuilder(LocalDateTime obj)
     {

@@ -23,6 +23,11 @@ public class ISBN<T extends String> {
         return Objects.hash(ISBNNumber);
     }
 
+    /**
+     * Sets ISBN number (builder pattern)
+     * @param obj
+     * @return ISBN
+     */
     public ISBN setISBNNumberBuilder(T obj)
     {
         this.ISBNNumber = obj;

@@ -19,6 +19,10 @@ public class LoginScreenController {
 
     @FXML
     private TextField passwordField;
+
+    /**
+     * Methods that execute while trying to log into the application
+     */
     @FXML
     private void login() {
         ArrayList<String> messages = new ArrayList<>();
@@ -57,6 +61,14 @@ public class LoginScreenController {
         }
     }
 
+    /**
+     * Function that checks if the given password is connected to given username
+     * @param userList
+     * @param username
+     * @param password
+     * @return boolean, true if they are connected
+     */
+
     private boolean checkIfPassowordIsValid(List<User> userList, String username, String password) {
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getUsername().equals(username)) {
@@ -68,6 +80,14 @@ public class LoginScreenController {
 
         return false;
     }
+
+    /**
+     * Function that returns the User entity of User currently logged in the application
+     * @param userList
+     * @param username
+     * @param password
+     * @return User
+     */
 
     private User returnCurrentUser(List<User> userList, String username, String password) {
         for (int i = 0; i < userList.size(); i++) {

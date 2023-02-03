@@ -6,7 +6,11 @@ import main.HelloApplication;
 
 import java.util.List;
 
-public class LastChangeThread implements Runnable{
+public class LastChangeThread implements Runnable {
+
+    /**
+     * Thread working in sync with main thread which tries to display the last Change from ChangeTracker
+     */
     @Override
     public void run() {
         List<Change> list = HelloApplication.getDataSource().loadAllChanges();

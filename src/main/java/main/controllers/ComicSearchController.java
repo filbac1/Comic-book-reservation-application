@@ -52,6 +52,9 @@ public class ComicSearchController {
         comicTableView.getSortOrder().addAll(comicNameColumn, publisherColumn, ISBNColumn);
     }
 
+    /**
+     * Set of actions performed when user searches for Comic in DB
+     */
     public void search() {
         List<Comic> filtered;
 

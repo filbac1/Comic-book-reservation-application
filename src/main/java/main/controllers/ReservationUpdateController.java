@@ -55,6 +55,10 @@ public class ReservationUpdateController {
         reservationTableView.setItems(FXCollections.observableList(allReservations));
         reservationTableView.getSortOrder().addAll(customerNameColumn, comicNameColumn);
     }
+
+    /**
+     * Set of actions performed when trying to update a Reservation
+     */
     public void update() {
         Reservation selectedReservation = reservationTableView.getSelectionModel().getSelectedItem();
 

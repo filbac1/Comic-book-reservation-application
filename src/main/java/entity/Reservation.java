@@ -60,17 +60,35 @@ public class Reservation<T extends Customer, V extends Comic> {
                 '}';
     }
 
+    /**
+     * Sets ID of reservation (builder pattern)
+     * @param obj
+     * @return Reservation
+     */
+
     public Reservation setReservationIDBuilder(Integer obj)
     {
         this.reservationID = obj;
         return this;
     }
 
+    /**
+     * Sets Customer in reservation (builder pattern)
+     * @param obj
+     * @return Reservation
+     */
+
     public Reservation setReservationCustomerBuilder(T obj)
     {
         this.customer = obj;
         return this;
     }
+
+    /**
+     * Sets Comic in reservation (builder pattern)
+     * @param obj
+     * @return Reservation
+     */
 
     public Reservation setReservationComicBuilder(V obj)
     {

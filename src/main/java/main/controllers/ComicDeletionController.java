@@ -41,6 +41,10 @@ public class ComicDeletionController {
         comicTableView.getSortOrder().addAll(comicNameColumn, publisherColumn, ISBNColumn);
     }
 
+    /**
+     * Set of actions performed when user deletes Comic from DB
+     */
+
     public void delete() {
         Comic selectedComic = comicTableView.getSelectionModel().getSelectedItem();
 

@@ -65,6 +65,11 @@ public class ReservationSearchController {
         tableInfo.setUnderline(true);
     }
 
+    /**
+     * Set of actions performed while trying to search for specific Reservation
+     * @throws MapDoesNotExistException
+     */
+
     public void search() throws MapDoesNotExistException {
         List<Reservation> filtered = new ArrayList<>();
 
@@ -97,6 +102,13 @@ public class ReservationSearchController {
         pickedCustomer.getSelectionModel().clearSelection();
         comicsList.getSelectionModel().clearSelection();
     }
+
+    /**
+     * Function that tries to write the number of specific comic to be reserved on screen
+     * @param comic
+     * @return String value represented on screen
+     * @throws MapDoesNotExistException
+     */
 
     private String setNumberOfSpecifiedComic(Comic comic) throws MapDoesNotExistException {
         Map<Integer, Integer> comicMap = HelloApplication.getDataSource().getNumberOfComics();

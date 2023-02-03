@@ -74,6 +74,11 @@ public final class User implements UserReader {
         return id.toString();
     }
 
+    /**
+     * Function that checks password strength (to be updated)
+     * @param user
+     * @return boolean is it strong enough
+     */
 
     @Override
     public boolean checkPasswordStrength(User user) {
@@ -84,11 +89,23 @@ public final class User implements UserReader {
         }
     }
 
+    /**
+     * Sets User ID (builder pattern)
+     * @param obj
+     * @return User
+     */
+
     public User setUserIDBuilder(Long obj)
     {
         this.id = obj;
         return this;
     }
+
+    /**
+     * Sets User username (builder pattern)
+     * @param obj
+     * @return User
+     */
 
     public User setUserUsernameBuilder(String obj)
     {
@@ -96,11 +113,23 @@ public final class User implements UserReader {
         return this;
     }
 
+    /**
+     * Sets User password (builder pattern)
+     * @param obj
+     * @return User
+     */
+
     public User setUserPasswordBuilder(String obj)
     {
         this.password = obj;
         return this;
     }
+
+    /**
+     * Sets userRole (enum) (builder pattern)
+     * @param obj
+     * @return User
+     */
 
     public User setUserRoleBuilder(UserRole obj)
     {

@@ -43,6 +43,10 @@ public class ReservationDeletionController {
         reservationTableView.getSortOrder().addAll(customerNameColumn, comicNameColumn);
     }
 
+    /**
+     * Set of actions performed when Reservation is deleted
+     */
+
     public void delete() {
         Reservation selectedReservation = reservationTableView.getSelectionModel().getSelectedItem();
 

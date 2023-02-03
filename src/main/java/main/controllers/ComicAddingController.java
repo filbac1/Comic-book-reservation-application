@@ -49,6 +49,10 @@ public class ComicAddingController {
 
     }
 
+    /**
+     * Set of actions performed when user adds Comic to DB
+     */
+
     public void add() {
         ArrayList<String> messages = new ArrayList<>();
 

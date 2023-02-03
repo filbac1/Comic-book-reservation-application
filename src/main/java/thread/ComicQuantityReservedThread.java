@@ -18,6 +18,9 @@ public class ComicQuantityReservedThread implements Runnable {
         this.stage = stage;
     }
 
+    /**
+     * Thread run function trying to show how many copies of specific comic are reserved
+     */
     @Override
     public void run() {
         DataSource dataSource = HelloApplication.getDataSource();

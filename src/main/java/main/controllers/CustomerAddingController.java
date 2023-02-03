@@ -45,6 +45,10 @@ public class CustomerAddingController {
         customerTableView.getSortOrder().addAll(lastNameColumn, firstNameColumn);
     }
 
+    /**
+     * Set of actions performed when user adds Customer to DB
+     */
+
     public void add() {
         ArrayList<String> messages = new ArrayList<>();
 

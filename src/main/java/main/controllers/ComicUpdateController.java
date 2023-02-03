@@ -50,6 +50,10 @@ public class ComicUpdateController {
         comicTableView.getSortOrder().addAll(comicNameColumn, publisherColumn, ISBNColumn);
     }
 
+    /**
+     * Set of actions performed when user updates Comic in DB
+     */
+
     public void update() {
         Comic selectedComic = comicTableView.getSelectionModel().getSelectedItem();
 

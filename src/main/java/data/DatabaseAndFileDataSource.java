@@ -50,6 +50,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
     // FILE FUNCTIONS
 
+    /**
+     * Compares users administration roles
+     * @param role
+     * @return UserRole enum
+     */
     public UserRole userStringCompare(String role) {
         if (role.equals("ADMINISTRATION_ROLE")) {
             return UserRole.ADMINISTRATION_ROLE;
@@ -60,6 +65,10 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         }
     }
 
+    /**
+     * Loads all users from .txt file
+     * @return Set of Users (every User is unique)
+     */
     public Set<User> loadAllUsers() {
         Path userFile = USER_FILE;
         Set<User> userSet = new HashSet<>();
@@ -86,6 +95,10 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         return userSet;
     }
 
+    /**
+     * Loads all changes made in program from binary file
+     * @return List of class Change
+     */
     @Override
     public synchronized List<Change> loadAllChanges() {
         Path changeFile = CHANGES_FILE;
@@ -114,6 +127,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         return changeList;
     }
 
+    /**
+     * Synchrnozied method for writing all changes in binary file
+     * @param changeList
+     */
+
     @Override
     public synchronized void writeChanges(List<Change> changeList) {
         var out = changeList.stream()
@@ -133,6 +151,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         }
     }
 
+    /**
+     * Gets User from field with String as param
+     * @param field
+     * @return User
+     */
 
     private User getUserFromField(String field) {
         Set<User> userSet = loadAllUsers();
@@ -146,6 +169,10 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         return null;
     }
 
+    /**
+     * Loads all customers from DB
+     * @return List of Customers
+     */
 
     // DATABASE FUNCTIONS
     public List<Customer> loadAllCustomersFromDatabase() {
@@ -171,6 +198,10 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         return customerList;
     }
 
+    /**
+     * Updates customer in DB
+     * @param customer
+     */
     public void updateDataForCustomerInDatabase(Customer customer) {
         try {
             PreparedStatement customerUpdateStatement = connection.prepareStatement("UPDATE CUSTOMER SET FIRST_NAME = ?, LAST_NAME = ? WHERE CUSTOMER_ID = ? ");
@@ -187,6 +218,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         }
     }
 
+    /**
+     * Creates new customer in DB
+     * @param customer
+     */
+
     private void createNewCustomerInDatabase(Customer customer) {
         try {
             PreparedStatement customerUpdateStatement = connection.prepareStatement("INSERT INTO CUSTOMER(FIRST_NAME, LAST_NAME) VALUES (?, ?)");
@@ -200,6 +236,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Deletes customer in DB
+     * @param customer
+     */
 
     private void deleteOldCustomerInDatabase(Customer customer) {
         try {
@@ -218,6 +259,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Loads all comics from DB
+     * @return List of Comics
+     */
 
     private List<Comic> loadAllComicsFromDatabase() {
         List<Comic> comicList = new ArrayList<>();
@@ -247,6 +293,12 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
     }
 
+    /**
+     * Compares string with Publisher enum
+     * @param publisher
+     * @return Publisher value of equal String
+     */
+
     private Publishers publisherHelper(String publisher) {
         for (Publishers p : Publishers.values()) {
             if (publisher.compareTo(p.toString()) == 0) {
@@ -255,6 +307,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         }
         return null;
     }
+
+    /**
+     * Creates new comic in DB
+     * @param comic
+     */
 
     private void createNewComicInDatabase(Comic comic) {
         try {
@@ -270,6 +327,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Deletes comic in DB
+     * @param selectedComic
+     */
 
     private void deleteOldComicInDatabase(Comic selectedComic) {
         try {
@@ -290,6 +352,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         }
     }
 
+    /**
+     * Updates comic in DB
+     * @param comic
+     */
+
     private void updateDataForComicInDatabase(Comic comic) {
         try {
             PreparedStatement comicUpdateStatement = connection.prepareStatement("UPDATE COMIC SET ISBN = ?, PUBLISHER = ?, COMIC_NAME = ? WHERE COMIC_ID = ? ");
@@ -306,6 +373,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Loads all reservations in DB
+     * @return
+     */
 
     private List<Reservation> loadAllReservationsFromDatabase() {
         List<Reservation> reservationList = new ArrayList<>();
@@ -333,6 +405,12 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         return reservationList;
     }
 
+    /**
+     * Returns customer by getting his ID if he exists
+     * @param ID
+     * @return Optional of customer
+     */
+
     private Optional<Customer> readCustomerID(Integer ID) {
         try {
             PreparedStatement customerStatement = connection.prepareStatement("SELECT * FROM CUSTOMER WHERE CUSTOMER_ID = ?");
@@ -355,6 +433,12 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
         return Optional.empty();
     }
+
+    /**
+     * Returns comic by id if it exists in DB
+     * @param ID
+     * @return Optional Comic
+     */
 
     private Optional<Comic> readComicID(Integer ID) {
         try {
@@ -384,6 +468,10 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         return Optional.empty();
     }
 
+    /**
+     * Creates new reservation in DB
+     * @param reservation
+     */
     private void createNewReservationInDatabase(Reservation reservation) {
         try {
             PreparedStatement reservationUpdateStatement = connection.prepareStatement("INSERT INTO RESERVATION(CUSTOMER_ID, COMIC_ID) VALUES (?, ?)");
@@ -397,6 +485,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Deletes reservation in DB
+     * @param selectedReservation
+     */
 
     private void deleteOldReservationInDatabase(Reservation selectedReservation) {
         try {
@@ -417,6 +510,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         }
     }
 
+    /**
+     * Updates reservation in DB
+     * @param reservation
+     */
+
     private void updateDataForReservationInDatabase(Reservation reservation) {
         try {
             PreparedStatement reservationUpdateStatement = connection.prepareStatement("UPDATE RESERVATION SET CUSTOMER_ID = ?, COMIC_ID = ? WHERE RESERVATION_ID = ? ");
@@ -433,84 +531,172 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         }
     }
 
+    /**
+     * Calls loadAllUsers() and loads them from DB
+     * @return Set of Users(unique)
+     */
+
     @Override
     public Set<User> readAllUsersFromFile() {
         return loadAllUsers();
     }
+
+    /**
+     * calls userStringCompare
+     * @param role
+     * @return UserRole
+     */
 
     @Override
     public UserRole userRoleDetector(String role) {
         return userStringCompare(role);
     }
 
+    /**
+     * Calls loadAllCustomersFromDatabase()
+     * @return List<Customer>
+     */
+
     @Override
     public List<Customer> readAllCustomersFromDatabase() {
         return loadAllCustomersFromDatabase();
     }
 
+    /**
+     * Calls createCustomerInDatabase(Customer customer)
+     * @param customer
+     */
+
     @Override
     public void createCustomerInDatabase(Customer customer) {
         createNewCustomerInDatabase(customer);
     }
+
+    /**
+     * Calls updateCustomerInDatabase(Customer customer)
+     * @param customer
+     */
     @Override
     public void updateCustomerInDatabase(Customer customer) {
         updateDataForCustomerInDatabase(customer);
     }
+
+    /**
+     * Calls deleteCustomerInDatabase(Customer customer)
+     * @param customer
+     */
 
     @Override
     public void deleteCustomerInDatabase(Customer customer) {
         deleteOldCustomerInDatabase(customer);
     }
 
+    /**
+     * Calls loadAllComicsFromDatabase()
+     * @return List<Comic>
+     */
+
     @Override
     public List<Comic> readAllComicsFromDatabase() {
         return loadAllComicsFromDatabase();
     }
 
+    /**
+     * Calls createComicInDatabase(Comic comic)
+     * @param comic
+     */
     @Override
     public void createComicInDatabase(Comic comic) {
         createNewComicInDatabase(comic);
     }
+
+    /**
+     * Calls deleteComicInDatabase(Comic comic)
+     * @param comic
+     */
 
     @Override
     public void deleteComicInDatabase(Comic comic) {
         deleteOldComicInDatabase(comic);
     }
 
+    /**
+     * Calls updateComicInDatabase(Comic comic)
+     * @param comic
+     */
+
     @Override
     public void updateComicInDatabase(Comic comic) {
         updateDataForComicInDatabase(comic);
     }
+
+    /**
+     * Calls readAllReservationsFromDatabase()
+     * @return List<Reservation>
+     */
 
     @Override
     public List<Reservation> readAllReservationsFromDatabase() {
         return loadAllReservationsFromDatabase();
     }
 
+    /**
+     * Calls readComicWhereID(Integer ID)
+     * @param ID
+     * @return Optional<Comic>
+     */
+
     @Override
     public Optional<Comic> readComicWhereID(Integer ID) {
         return readComicID(ID);
     }
+
+    /**
+     * Calls readCustomerWhereID(Integer ID)
+     * @param ID
+     * @return Optional<Customer>
+     */
 
     @Override
     public Optional<Customer> readCustomerWhereID(Integer ID) {
         return readCustomerID(ID);
     }
 
+    /**
+     * Calls createReservationInDatabase(Reservation reservation)
+     * @param reservation
+     */
+
     @Override
     public void createReservationInDatabase(Reservation reservation) {
         createNewReservationInDatabase(reservation);
     }
+
+    /**
+     * Calls deleteReservationInDatabase(Reservation reservation)
+     * @param reservation
+     */
 
     @Override
     public void deleteReservationInDatabase(Reservation reservation) {
         deleteOldReservationInDatabase(reservation);
     }
 
+    /**
+     * Calls updateReservationInDatabase(Reservation reservation)
+     * @param reservation
+     */
+
     @Override
     public void updateReservationInDatabase(Reservation reservation) {
         updateDataForReservationInDatabase(reservation);
     }
+
+    /**
+     * Checks if comic is connected to a reservation
+     * @param comic
+     * @return boolean
+     */
 
     @Override
     public boolean comicConnectedToReservation(Comic comic) {
@@ -518,12 +704,17 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
         for (Reservation r : reservationList) {
             if (r.getComic().getComicID().equals(comic.getComicID())) {
-                System.out.println("Isti comic ID!");
                 return true;
             }
         }
         return false;
     }
+
+    /**
+     * Checks if customer is connected to a reservation
+     * @param customer
+     * @return boolean
+     */
 
     @Override
     public boolean customerConnectedToReservation(Customer customer) {
@@ -538,6 +729,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         return false;
     }
 
+    /**
+     * Closes the H2 database
+     * @throws IOException
+     */
+
     @Override
     public void close() throws IOException {
         try {
@@ -546,6 +742,11 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             logger.error("Problem with SQL or connection...");
         }
     }
+
+    /**
+     * Makes a map consisting of key as an Integer representing unique COMIC_ID and value in the form of Integer that represents number of that comic reserved
+     * @return Map of Integers
+     */
     @Override
     public Map<Integer, Integer> getNumberOfComics() {
         List<Reservation> reservationList = readAllReservationsFromDatabase();

@@ -40,6 +40,9 @@ public class CustomerSearchController {
         customerTableView.getSortOrder().addAll(lastNameColumn, firstNameColumn);
     }
 
+    /**
+     * Set of actions performed when user searches for Customer in DB
+     */
     public void search() {
         List<Customer> filtered = allCustomers.stream()
                 .filter(c -> c.firstName().contains(firstName.getText()))

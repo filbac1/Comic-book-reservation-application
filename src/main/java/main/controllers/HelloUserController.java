@@ -19,6 +19,10 @@ public class HelloUserController {
         displayName(currentUser);
     }
 
+    /**
+     * Function that displays received User info on screen
+     * @param user
+     */
     public void displayName(User user) {
         usernameWelcomeField.setText("Hello " + currentUser.getUsername() + " :-)");
     }

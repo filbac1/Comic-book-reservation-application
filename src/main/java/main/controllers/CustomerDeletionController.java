@@ -41,6 +41,10 @@ public class CustomerDeletionController {
         customerTableView.getSortOrder().addAll(lastNameColumn, firstNameColumn);
     }
 
+    /**
+     * Set of actions performed when user deletes Customer from DB
+     */
+
     public void delete() {
         Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
 

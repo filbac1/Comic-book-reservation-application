@@ -31,6 +31,11 @@ public abstract class Book {
         return Objects.hash(bookName);
     }
 
+    /**
+     * Sets book name (builder pattern)
+     * @param name
+     * @return
+     */
     public Book setBookNameBuilder(String name)
     {
         this.bookName = name;

@@ -58,6 +58,10 @@ public class ReservationAddingController {
         reservationTableView.getSortOrder().addAll(customerNameColumn, comicNameColumn);
     }
 
+    /**
+     * Set of actions performed when new Reservation is added
+     */
+
     public void add() {
 
         ArrayList<String> messages = new ArrayList<>();

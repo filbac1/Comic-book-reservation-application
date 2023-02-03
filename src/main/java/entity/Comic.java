@@ -61,17 +61,35 @@ public class Comic extends Book {
         return bookName;
     }
 
+    /**
+     * Sets comicID (builder pattern)
+     * @param obj
+     * @return Comic
+     */
+
     public Comic setComicIDBuilder(Integer obj)
     {
         this.comicID = obj;
         return this;
     }
 
+    /**
+     * Sets publisher of comic (builder pattern)
+     * @param obj
+     * @return Comic
+     */
+
     public Comic setComicPublisherBuilder(Publishers obj)
     {
         this.publisher = obj;
         return this;
     }
+
+    /**
+     * Sets ISBN of comic (builder pattern)
+     * @param obj
+     * @return Comic
+     */
 
     public Comic setISBNBuilder(ISBN obj)
     {

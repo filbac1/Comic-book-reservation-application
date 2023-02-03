@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public class NumberOfComicsReservedThread implements Runnable{
+
+    /**
+     * Thread that alerts on how many copies of all comics should be set aside for reservation
+     */
     @Override
     public void run() {
         DataSource dataSource = HelloApplication.getDataSource();
