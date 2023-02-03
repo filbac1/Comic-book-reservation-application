@@ -1,29 +1,23 @@
 package thread;
 
 import data.DataSource;
+import entity.Reservation;
 import exception.MapDoesNotExistException;
 import javafx.scene.control.Alert;
 import main.HelloApplication;
 
+import java.util.List;
 import java.util.Map;
 
 public class NumberOfComicsReservedThread implements Runnable{
     @Override
     public void run() {
         DataSource dataSource = HelloApplication.getDataSource();
-        Map<Integer, Integer> comicNumberMap = null;
+        List<Reservation> comicNumberList = null;
 
-        try {
-            comicNumberMap = dataSource.getNumberOfComics();
-        } catch (MapDoesNotExistException e) {
-            e.printStackTrace();
-        }
+        comicNumberList = dataSource.readAllReservationsFromDatabase();
 
-        Integer numberOfComicCopiesToBeReserved = 0;
-
-        for (Map.Entry<Integer,Integer> entry : comicNumberMap.entrySet()) {
-            numberOfComicCopiesToBeReserved += entry.getValue();
-        }
+        Integer numberOfComicCopiesToBeReserved = comicNumberList.size();
 
         var alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Number of comics you MUST have stored!");

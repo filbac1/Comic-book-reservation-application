@@ -33,6 +33,7 @@ public interface DataSource {
     void updateComicInDatabase(Comic comic);
 
     List<Reservation> readAllReservationsFromDatabase();
+    List<Reservation> readAllReservationsFromDatabaseSynchronized();
 
     Optional<Comic> readComicWhereID (Integer ID);
     Optional<Customer> readCustomerWhereID (Integer ID);

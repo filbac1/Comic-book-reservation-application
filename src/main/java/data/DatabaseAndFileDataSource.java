@@ -463,6 +463,11 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     }
 
     @Override
+    public synchronized List<Reservation> readAllReservationsFromDatabaseSynchronized() {
+        return loadAllReservationsFromDatabase();
+    }
+
+    @Override
     public Optional<Comic> readComicWhereID(Integer ID) {
         return readComicID(ID);
     }
@@ -523,22 +528,24 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     }
     @Override
     public synchronized Map<Integer, Integer> getNumberOfComics() throws MapDoesNotExistException {
-        List<Reservation> reservationList = readAllReservationsFromDatabase();
+        List<Reservation> reservationList = readAllReservationsFromDatabaseSynchronized();
+        System.out.println(reservationList);
         Map<Integer, Integer> comicNumberMap = new HashMap<>();
         Integer numberOfComics;
 
         try {
             for (int i = 0; i < reservationList.size(); i++) {
-                if (comicNumberMap.containsValue(reservationList.get(i).getComic().getComicID())) {
+                numberOfComics = 1;
+                if (comicNumberMap.containsKey(reservationList.get(i).getComic().getComicID())) {
                     numberOfComics = comicNumberMap.get(reservationList.get(i).getComic().getComicID());
+                    //System.out.println("number of cimocs" + numberOfComics);
                     ++numberOfComics;
-                    comicNumberMap.put(reservationList.get(i).getComic().getComicID(), numberOfComics);
-                } else {
-                    comicNumberMap.put(reservationList.get(i).getComic().getComicID(), 1);
                 }
+                comicNumberMap.put(reservationList.get(i).getComic().getComicID(), numberOfComics);
             }
             return comicNumberMap;
         } catch (Exception e) {
+            System.out.println("ERROR AAA: " + e.getMessage());
             throw new MapDoesNotExistException("There is a problem with this map!");
         }
     }
