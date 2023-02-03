@@ -47,5 +47,8 @@ public class CustomerSearchController {
                 .toList();
 
         customerTableView.setItems(FXCollections.observableList(filtered));
+
+        firstName.clear();
+        lastName.clear();
     }
 }

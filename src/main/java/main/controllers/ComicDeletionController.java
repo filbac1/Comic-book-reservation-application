@@ -1,6 +1,7 @@
 package main.controllers;
 
 import entity.*;
+import exception.ConnectedToReservationException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -68,6 +69,8 @@ public class ComicDeletionController {
                     changeList.add(changeTwo);
                     changeList.add(changeThree);
                     HelloApplication.getDataSource().writeChanges(changeList);
+                } else {
+                    throw new ConnectedToReservationException("This comic is connected to a reservation!");
                 }
 
                 initialize();

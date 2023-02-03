@@ -53,12 +53,24 @@ public class ComicSearchController {
     }
 
     public void search() {
-        List<Comic> filtered = allComics.stream()
-                .filter(c -> c.getBookName().contains(comicName.getText()))
-                .filter(c -> c.getPublisher().name().contains(pickedPublisher.getValue().name()))
-                .filter(c -> c.getIsbn().getISBNNumber().contains(ISBN.getText()))
-                .toList();
+        List<Comic> filtered;
+
+        if (pickedPublisher.getValue() != null) {
+            filtered = allComics.stream()
+                    .filter(c -> c.getBookName().contains(comicName.getText()))
+                    .filter(c -> c.getPublisher().name().contains(pickedPublisher.getValue().toString()))
+                    .filter(c -> c.getIsbn().getISBNNumber().contains(ISBN.getText()))
+                    .toList();
+        } else {
+            filtered = allComics.stream()
+                    .filter(c -> c.getBookName().contains(comicName.getText()))
+                    .filter(c -> c.getIsbn().getISBNNumber().contains(ISBN.getText()))
+                    .toList();
+        }
 
         comicTableView.setItems(FXCollections.observableList(filtered));
+        comicName.clear();
+        ISBN.clear();
+        pickedPublisher.getSelectionModel().clearSelection();
     }
 }
