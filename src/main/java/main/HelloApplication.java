@@ -41,7 +41,7 @@ public class HelloApplication extends Application {
         stage.show();
 
         var randomComicInfo = new Timeline(
-                new KeyFrame(Duration.seconds(4), e -> Platform.runLater(new ComicQuantityReservedThread(stage)))
+                new KeyFrame(Duration.seconds(1), e -> Platform.runLater(new ComicQuantityReservedThread(stage)))
         );
 
         randomComicInfo.setCycleCount(Timeline.INDEFINITE);

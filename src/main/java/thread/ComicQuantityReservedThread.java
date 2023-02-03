@@ -23,24 +23,32 @@ public class ComicQuantityReservedThread implements Runnable {
         Map<Integer, Integer> comicNumberMap;
         List<Comic> allComics = HelloApplication.getDataSource().readAllComicsFromDatabase();
 
-        List<Integer> keys = new ArrayList<>();
-
         try {
             comicNumberMap = dataSource.getNumberOfComics();
         } catch (MapDoesNotExistException e) {
             throw new RuntimeException(e);
         }
 
-        for (Map.Entry<Integer,Integer> comic : comicNumberMap.entrySet()) {
-            keys.add(comic.getKey());
+        Random rand = new Random();
+        List<Integer> comicIDList = new ArrayList<>(comicNumberMap.keySet());
+        System.out.println(comicIDList);
+
+        Integer randComicID = comicIDList.get(rand.nextInt(comicIDList.size()));
+        System.out.println(randComicID);
+        Comic randComic = null;
+
+        for (Comic c : allComics) {
+            if(c.getComicID().equals(randComicID)) {
+                randComic = c;
+                break;
+            }
         }
 
-        Random rand = new Random();
+        System.out.println(randComic);
 
-        Comic randomKey = allComics.get(rand.nextInt(allComics.size()));
         int randomValue = 0;
         try {
-            randomValue = comicNumberMap.get(randomKey.getComicID());
+            randomValue = comicNumberMap.get(randComicID);
         } catch (DeletedElementException e) {
             e.printStackTrace();
         } catch (NullPointerException ex) {
@@ -51,14 +59,12 @@ public class ComicQuantityReservedThread implements Runnable {
         String title;
 
         if (randomValue != 1) {
-            title = randomKey.getBookName() + " has to be reserved in at least " + randomValue + " copies!";
+            title = randComic.getBookName() + " has to be reserved in at least " + randomValue + " copies!";
         } else {
-            title = randomKey.getBookName() + " has to be reserved in at least " + randomValue + " copy!";
+            title = randComic.getBookName() + " has to be reserved in at least " + randomValue + " copy!";
         }
 
-
         stage.setTitle(title);
-
 
     }
 }
