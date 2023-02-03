@@ -183,3 +183,33 @@ firstName;Goran;Goran;1;3.2.2023. 17:42
 lastName;Marković;Malović;1;3.2.2023. 17:42
 firstName;Ivan;null;1;3.2.2023. 17:42
 lastName;Žderić;null;1;3.2.2023. 17:42
+firstName;null;Ana;1;3.2.2023. 17:57
+lastName;null;Radić;1;3.2.2023. 17:57
+firstName;Ana;null;1;3.2.2023. 17:58
+lastName;Miloš;null;1;3.2.2023. 17:58
+firstName;Milan;Milan;1;3.2.2023. 17:59
+lastName;Okić;Okilon;1;3.2.2023. 17:59
+firstName;Milan;Marin;1;3.2.2023. 17:59
+lastName;Okilon;Okilon;1;3.2.2023. 17:59
+comicName;null;Vam;1;3.2.2023. 18:00
+pickedPublisher;null;FIBRA;1;3.2.2023. 18:00
+ISBN;null;2465437685437;1;3.2.2023. 18:00
+comicName;Mali Rendžer 2;null;1;3.2.2023. 18:01
+pickedPublisher;LUDENS;null;1;3.2.2023. 18:01
+ISBN;8374957477462;null;1;3.2.2023. 18:01
+comicName;Kapetan Miki 1;Blek 1;1;3.2.2023. 18:02
+pickedPublisher;LUDENS;LUDENS;1;3.2.2023. 18:02
+ISBN;9463758475294;9463758475294;1;3.2.2023. 18:02
+firstName;Ana;Anja;1;3.2.2023. 18:05
+lastName;Radić;Radić;1;3.2.2023. 18:05
+comicName;Vam;Vam;1;3.2.2023. 18:05
+pickedPublisher;FIBRA;FIBRA;1;3.2.2023. 18:05
+ISBN;2465437685437;4955959594432;1;3.2.2023. 18:05
+reservationCustomer;null;Bačić Filip;1;3.2.2023. 18:06
+reservationComic;null;Zagor 2;1;3.2.2023. 18:06
+reservationCustomer;Bačić Filip;null;1;3.2.2023. 18:07
+reservationComic;Zagor 2;null;1;3.2.2023. 18:07
+reservationCustomer;Jakić Mara;Jakić Mara;1;3.2.2023. 18:08
+reservationComic;The amazing Spiderman 1;Zagor 2;1;3.2.2023. 18:08
+reservationCustomer;Bačić Filip;Bačić Filip;1;3.2.2023. 18:08
+reservationComic;Mark 1;Zagor 2;1;3.2.2023. 18:08

@@ -111,7 +111,7 @@ public class ReservationSearchController {
         if (comicQuantity == 1) {
             return String.format(comicQuantity + " copy of " + comic.getBookName() + " is reserved!");
         } else {
-            return String.format(comicQuantity + " copies of " + comic.getBookName() + " is reserved!");
+            return String.format(comicQuantity + " copies of " + comic.getBookName() + " are reserved!");
         }
     }
 

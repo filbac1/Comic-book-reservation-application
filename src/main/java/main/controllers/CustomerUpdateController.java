@@ -97,6 +97,7 @@ public class CustomerUpdateController {
                 lastName.clear();
 
                 initialize();
+            }
         } else {
                 String allMessages = String.join("\n", messages);
                 var alert = new Alert(Alert.AlertType.ERROR, allMessages);
@@ -105,4 +106,3 @@ public class CustomerUpdateController {
             }
         }
     }
-}
