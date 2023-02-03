@@ -28,3 +28,79 @@ reservationCustomer;null;t T;1;2.2.2023. 19:34
 reservationComic;null;FFF;1;2.2.2023. 19:34
 reservationCustomer;null;BA B;1;2.2.2023. 19:34
 reservationComic;null;FFF;1;2.2.2023. 19:34
+comicName;null;ZAGOR 16;1;3.2.2023. 10:44
+pickedPublisher;null;LUDENS;1;3.2.2023. 10:44
+ISBN;null;5555;1;3.2.2023. 10:44
+comicName;null;MALI RENDĐER 17;1;3.2.2023. 10:44
+pickedPublisher;null;LUDENS;1;3.2.2023. 10:44
+ISBN;null;5555232;1;3.2.2023. 10:44
+firstName;AAAAA;Ivan;1;3.2.2023. 10:56
+lastName;AAAAA;Žderić;1;3.2.2023. 10:56
+firstName;Ante;Ante;1;3.2.2023. 10:57
+lastName;Milić;Vuković;1;3.2.2023. 10:57
+firstName;G;Goran;1;3.2.2023. 10:57
+lastName;G;Marković;1;3.2.2023. 10:57
+firstName;hh;Herman;1;3.2.2023. 10:58
+lastName;CUS1;Majer;1;3.2.2023. 10:58
+firstName;O;null;1;3.2.2023. 10:58
+lastName;O;null;1;3.2.2023. 10:58
+firstName;N;null;1;3.2.2023. 10:58
+lastName;N;null;1;3.2.2023. 10:58
+firstName;M;null;1;3.2.2023. 10:58
+lastName;M;null;1;3.2.2023. 10:58
+firstName;J;null;1;3.2.2023. 10:58
+lastName;J;null;1;3.2.2023. 10:58
+firstName;Mira;Mira;1;3.2.2023. 10:59
+lastName;Svima;Jakić;1;3.2.2023. 10:59
+comicName;FFF;The Amazing Spiderman;1;3.2.2023. 11:01
+pickedPublisher;CRS;CRS;1;3.2.2023. 11:01
+ISBN;FFF;982147924198;1;3.2.2023. 11:01
+comicName;MALI RENDĐER 17;Mali Rendžer 1;1;3.2.2023. 11:02
+pickedPublisher;LUDENS;LUDENS;1;3.2.2023. 11:02
+ISBN;5555232;8374957477462;1;3.2.2023. 11:02
+comicName;ZAGOR 16;Mali Rendžer 2;1;3.2.2023. 11:02
+pickedPublisher;LUDENS;LUDENS;1;3.2.2023. 11:02
+ISBN;5555;8374957477462;1;3.2.2023. 11:02
+comicName;ZAGOR 9 ;Zagor 1;1;3.2.2023. 11:03
+pickedPublisher;STRIPAGENT;LUDENS;1;3.2.2023. 11:03
+ISBN;111;473854738572;1;3.2.2023. 11:03
+comicName;The Amazing Spiderman;The Amazing Spiderman;1;3.2.2023. 11:03
+pickedPublisher;CRS;CRS;1;3.2.2023. 11:03
+ISBN;982147924198;6738547385726;1;3.2.2023. 11:03
+comicName;Zagor 1;Zagor 1;1;3.2.2023. 11:03
+pickedPublisher;LUDENS;LUDENS;1;3.2.2023. 11:03
+ISBN;473854738572;4738542485726;1;3.2.2023. 11:03
+comicName;ZAGOR 18;Zagor 2;1;3.2.2023. 11:04
+pickedPublisher;LUDENS;LUDENS;1;3.2.2023. 11:04
+ISBN;5465646;4738542485726;1;3.2.2023. 11:04
+comicName;null;Vam;1;3.2.2023. 11:05
+pickedPublisher;null;FIBRA;1;3.2.2023. 11:05
+ISBN;null;8573957483753;1;3.2.2023. 11:05
+reservationCustomer;Ana Miloš;null;1;3.2.2023. 11:06
+reservationComic;The Amazing Spiderman;null;1;3.2.2023. 11:06
+reservationCustomer;Filip Bačić;null;1;3.2.2023. 11:06
+reservationComic;Zagor 2;null;1;3.2.2023. 11:06
+reservationCustomer;Marijan Vučelić;null;1;3.2.2023. 11:06
+reservationComic;The Amazing Spiderman;null;1;3.2.2023. 11:06
+reservationCustomer;Marijan Vučelić;null;1;3.2.2023. 11:06
+reservationComic;Zagor 2;null;1;3.2.2023. 11:06
+reservationCustomer;Stjepan Kos;null;1;3.2.2023. 11:06
+reservationComic;Zagor 1;null;1;3.2.2023. 11:06
+reservationCustomer;Timon Puhić;null;1;3.2.2023. 11:06
+reservationComic;The Amazing Spiderman;null;1;3.2.2023. 11:06
+reservationCustomer;null;Filip Bačić;1;3.2.2023. 11:06
+reservationComic;null;The Amazing Spiderman;1;3.2.2023. 11:06
+reservationCustomer;null;Herman Majer;1;3.2.2023. 11:06
+reservationComic;null;Zagor 2;1;3.2.2023. 11:06
+reservationCustomer;null;Herman Majer;1;3.2.2023. 11:06
+reservationComic;null;Zagor 1;1;3.2.2023. 11:06
+reservationCustomer;null;Ana Miloš;1;3.2.2023. 11:06
+reservationComic;null;Mali Rendžer 1;1;3.2.2023. 11:06
+reservationCustomer;null;Stjepan Kos;1;3.2.2023. 11:07
+reservationComic;null;Mali Rendžer 1;1;3.2.2023. 11:07
+reservationCustomer;null;Timon Puhić;1;3.2.2023. 11:07
+reservationComic;null;Mali Rendžer 1;1;3.2.2023. 11:07
+firstName;null;Mario;1;3.2.2023. 11:17
+lastName;null;Cvetić;1;3.2.2023. 11:17
+firstName;Mario;null;1;3.2.2023. 11:17
+lastName;Cvetić;null;1;3.2.2023. 11:17

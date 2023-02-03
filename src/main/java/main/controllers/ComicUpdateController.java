@@ -47,6 +47,7 @@ public class ComicUpdateController {
         pickedPublisher.setItems(FXCollections.observableList(publishersList));
 
         comicTableView.setItems(FXCollections.observableList(allComics));
+        comicTableView.getSortOrder().addAll(comicNameColumn, publisherColumn, ISBNColumn);
     }
 
     public void update() {

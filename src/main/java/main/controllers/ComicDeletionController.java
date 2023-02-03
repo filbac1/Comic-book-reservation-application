@@ -37,6 +37,7 @@ public class ComicDeletionController {
         allComics = HelloApplication.getDataSource().readAllComicsFromDatabase();
 
         comicTableView.setItems(FXCollections.observableList(allComics));
+        comicTableView.getSortOrder().addAll(comicNameColumn, publisherColumn, ISBNColumn);
     }
 
     public void delete() {

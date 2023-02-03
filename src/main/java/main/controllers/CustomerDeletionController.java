@@ -3,6 +3,7 @@ package main.controllers;
 import entity.Change;
 import entity.Customer;
 import entity.User;
+import exception.ConnectedToReservationException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ public class CustomerDeletionController {
         allCustomers = HelloApplication.getDataSource().readAllCustomersFromDatabase();
 
         customerTableView.setItems(FXCollections.observableList(allCustomers));
+        customerTableView.getSortOrder().addAll(lastNameColumn, firstNameColumn);
     }
 
     public void delete() {
@@ -66,6 +68,8 @@ public class CustomerDeletionController {
                     changeList.add(changeOne);
                     changeList.add(changeTwo);
                     HelloApplication.getDataSource().writeChanges(changeList);
+                } else {
+                    throw new ConnectedToReservationException("This customer is connected to a reservation!");
                 }
 
                 initialize();

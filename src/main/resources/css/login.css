@@ -1,14 +1,13 @@
 .button {
-    button_background_color: #333333;
-    background_pressed_color: #666666;
-
-    border_hover_color: #858585;
-
-    text_color: white;
-    default_button_text_color: white;
-
-    focus_ring_border_color: white;
-    border_hover_default_color: #000000;
+    -fx-background-color: black;
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Industrial Sans";
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-padding: 10 20 10 20;
 }
 
 .label {
@@ -40,17 +39,6 @@
     graphic_color: #747474;
 }
 
-.button {
-    -fx-background-color:
-            linear-gradient(#f2f2f2, #d6d6d6),
-            linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
-            linear-gradient(#dddddd 0%, #f6f6f6 50%);
-    -fx-background-radius: 8,7,6;
-    -fx-background-insets: 0,1,2;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-font-family: "Industrial Sans";
 
-}
 
 

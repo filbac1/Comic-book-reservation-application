@@ -83,4 +83,8 @@ public class HelloApplication extends Application {
     public static Stage getAppStage() {
         return appStage;
     }
+
+    public static Logger getLogger() {
+        return logger;
+    }
 }

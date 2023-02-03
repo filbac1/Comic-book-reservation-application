@@ -7,9 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.HelloApplication;
+import sorter.ComicSorter;
+import sorter.CustomerSorter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,13 +41,17 @@ public class ReservationUpdateController {
         allComics = HelloApplication.getDataSource().readAllComicsFromDatabase();
         allReservations = HelloApplication.getDataSource().readAllReservationsFromDatabase();
 
+        Collections.sort(allCustomers, new CustomerSorter());
         pickedCustomer.setItems(FXCollections.observableList(allCustomers));
+
+        Collections.sort(allComics, new ComicSorter());
         comicsList.setItems(FXCollections.observableList(allComics));
 
         customerNameColumn.setCellValueFactory(data -> new SimpleStringProperty((data.getValue().getCustomer().toString())));
         comicNameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getComic().toString()));
 
         reservationTableView.setItems(FXCollections.observableList(allReservations));
+        reservationTableView.getSortOrder().addAll(customerNameColumn, comicNameColumn);
     }
     public void update() {
         Reservation selectedReservation = reservationTableView.getSelectionModel().getSelectedItem();

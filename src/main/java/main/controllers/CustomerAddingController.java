@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import main.HelloApplication;
+import sorter.CustomerSorter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class CustomerAddingController {
         allCustomers = HelloApplication.getDataSource().readAllCustomersFromDatabase();
 
         customerTableView.setItems(FXCollections.observableList(allCustomers));
+        customerTableView.getSortOrder().addAll(lastNameColumn, firstNameColumn);
     }
 
     public void add() {

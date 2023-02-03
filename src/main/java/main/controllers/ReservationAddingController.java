@@ -6,9 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.HelloApplication;
+import sorter.ComicSorter;
+import sorter.CustomerSorter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ReservationAddingController {
@@ -35,13 +38,17 @@ public class ReservationAddingController {
         allComics = HelloApplication.getDataSource().readAllComicsFromDatabase();
         allReservations = HelloApplication.getDataSource().readAllReservationsFromDatabase();
 
+        Collections.sort(allCustomers, new CustomerSorter());
         pickedCustomer.setItems(FXCollections.observableList(allCustomers));
+
+        Collections.sort(allComics, new ComicSorter());
         comicsList.setItems(FXCollections.observableList(allComics));
 
         customerNameColumn.setCellValueFactory(data -> new SimpleStringProperty((data.getValue().getCustomer().toString())));
         comicNameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getComic().toString()));
 
         reservationTableView.setItems(FXCollections.observableList(allReservations));
+        reservationTableView.getSortOrder().addAll(customerNameColumn, comicNameColumn);
     }
 
     public void add() {

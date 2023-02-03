@@ -45,6 +45,8 @@ public class ComicAddingController {
         pickedPublisher.getSelectionModel().selectFirst();
 
         comicTableView.setItems(FXCollections.observableList(allComics));
+        comicTableView.getSortOrder().addAll(comicNameColumn, publisherColumn, ISBNColumn);
+
     }
 
     public void add() {

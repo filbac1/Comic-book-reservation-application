@@ -50,7 +50,7 @@ public class ComicQuantityReservedThread implements Runnable {
 
         String title;
 
-        if (randomValue > 1) {
+        if (randomValue != 1) {
             title = randomKey.getBookName() + " has to be reserved in at least " + randomValue + " copies!";
         } else {
             title = randomKey.getBookName() + " has to be reserved in at least " + randomValue + " copy!";

@@ -10,9 +10,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.HelloApplication;
+import sorter.ComicSorter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +39,11 @@ public class ReservationDeletionController {
         allReservations = HelloApplication.getDataSource().readAllReservationsFromDatabase();
 
         customerNameColumn.setCellValueFactory(data -> new SimpleStringProperty((data.getValue().getCustomer().toString())));
+
         comicNameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getComic().toString()));
 
         reservationTableView.setItems(FXCollections.observableList(allReservations));
+        reservationTableView.getSortOrder().addAll(customerNameColumn, comicNameColumn);
     }
 
     public void delete() {

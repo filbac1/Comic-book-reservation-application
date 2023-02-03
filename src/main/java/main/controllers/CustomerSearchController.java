@@ -37,6 +37,7 @@ public class CustomerSearchController {
         allCustomers = HelloApplication.getDataSource().readAllCustomersFromDatabase();
 
         customerTableView.setItems(FXCollections.observableList(allCustomers));
+        customerTableView.getSortOrder().addAll(lastNameColumn, firstNameColumn);
     }
 
     public void search() {

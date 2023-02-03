@@ -4,7 +4,10 @@ import entity.*;
 import exception.DataSourceException;
 import exception.MapDoesNotExistException;
 import javafx.scene.control.Alert;
+import main.HelloApplication;
 import main.controllers.ReservationSearchController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.FileNotFoundException;
@@ -23,8 +26,8 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     private static final Path CHANGES_FILE = Path.of("dat/changes.dat");
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("d.M.yyyy. H:mm");
     private final Connection connection;
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseAndFileDataSource.class);
 
-    private static final ReservationSearchController reservationSearchController = new ReservationSearchController();
 
     public DatabaseAndFileDataSource() throws DataSourceException, IOException {
         Properties properties = new Properties();
@@ -538,10 +541,6 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         } catch (Exception e) {
             throw new MapDoesNotExistException("There is a problem with this map!");
         }
-    }
-    @Override
-    public ReservationSearchController getReservationSearchController() {
-        return reservationSearchController;
     }
 }
 

@@ -56,8 +56,8 @@
 
         <TableView fx:id="customerTableView" prefHeight="368.0" prefWidth="586.4" GridPane.columnSpan="2" GridPane.rowIndex="6">
             <columns>
-                <TableColumn fx:id="firstNameColumn" prefWidth="293.2" text="First name" />
                 <TableColumn fx:id="lastNameColumn" prefWidth="293.2" text="Last name" />
+                <TableColumn fx:id="firstNameColumn" prefWidth="293.2" text="First name" />
             </columns>
         </TableView>
     </GridPane>

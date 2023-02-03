@@ -48,5 +48,4 @@ public interface DataSource {
 
     Map<Integer, Integer> getNumberOfComics() throws MapDoesNotExistException;
 
-    ReservationSearchController getReservationSearchController();
 }
