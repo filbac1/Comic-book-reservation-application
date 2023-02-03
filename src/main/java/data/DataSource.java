@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public interface DataSource {
+public sealed interface DataSource permits DatabaseAndFileDataSource {
     List<Change> loadAllChanges();
 
     void writeChanges(List<Change> changeList);

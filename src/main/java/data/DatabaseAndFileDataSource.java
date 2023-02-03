@@ -3,6 +3,7 @@ package data;
 import entity.*;
 import exception.DataSourceException;
 import exception.MapDoesNotExistException;
+import exception.NoSuchDBPropertiesFile;
 import javafx.scene.control.Alert;
 import main.HelloApplication;
 import main.controllers.ReservationSearchController;
@@ -21,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DatabaseAndFileDataSource implements DataSource, Closeable {
+public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeable {
     private static final Path USER_FILE = Path.of("dat/user.txt");
     private static final Path CHANGES_FILE = Path.of("dat/changes.dat");
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("d.M.yyyy. H:mm");
@@ -29,8 +30,9 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseAndFileDataSource.class);
 
 
-    public DatabaseAndFileDataSource() throws DataSourceException, IOException {
+    public DatabaseAndFileDataSource() throws DataSourceException, IOException, NoSuchDBPropertiesFile {
         Properties properties = new Properties();
+
         properties.load(new FileReader("src/main/resources/db.properties"));
 
         String dbUrl = properties.getProperty("url");
@@ -40,7 +42,9 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassoword);
         } catch (SQLException e) {
+            logger.error("AAAA");
             throw new DataSourceException(e);
+
         }
     }
 
@@ -81,7 +85,7 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     }
 
     @Override
-    public List<Change> loadAllChanges() {
+    public synchronized List<Change> loadAllChanges() {
         Path changeFile = CHANGES_FILE;
         List<Change> changeList = new ArrayList<>();
 
@@ -106,20 +110,8 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         return changeList;
     }
 
-    private User getUserFromField(String field) {
-        Set<User> userSet = loadAllUsers();
-        List<User> userList = new ArrayList<>(userSet);
-
-        for (User u : userList) {
-            if (u.getId().toString().equals(field)) {
-                return u;
-            }
-        }
-        return null;
-    }
-
     @Override
-    public void writeChanges(List<Change> changeList) {
+    public synchronized void writeChanges(List<Change> changeList) {
         var out = changeList.stream()
                 .map(p -> "%s;%s;%s;%s;%s".formatted(
                         p.getObjectChanged(),
@@ -135,6 +127,20 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
             throw new RuntimeException(e);
         }
     }
+
+
+    private User getUserFromField(String field) {
+        Set<User> userSet = loadAllUsers();
+        List<User> userList = new ArrayList<>(userSet);
+
+        for (User u : userList) {
+            if (u.getId().toString().equals(field)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
 
     // DATABASE FUNCTIONS
     public List<Customer> loadAllCustomersFromDatabase() {
@@ -204,7 +210,7 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         }
     }
 
-    private List<Comic> loadAllComicsFromDatabase() {
+    private synchronized List<Comic> loadAllComicsFromDatabase() {
         List<Comic> comicList = new ArrayList<>();
 
         try {
@@ -438,7 +444,7 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
     }
 
     @Override
-    public List<Comic> readAllComicsFromDatabase() {
+    public synchronized List<Comic> readAllComicsFromDatabase() {
         return loadAllComicsFromDatabase();
     }
 
@@ -527,27 +533,24 @@ public class DatabaseAndFileDataSource implements DataSource, Closeable {
         }
     }
     @Override
-    public synchronized Map<Integer, Integer> getNumberOfComics() throws MapDoesNotExistException {
+    public synchronized Map<Integer, Integer> getNumberOfComics() {
         List<Reservation> reservationList = readAllReservationsFromDatabaseSynchronized();
         System.out.println(reservationList);
         Map<Integer, Integer> comicNumberMap = new HashMap<>();
         Integer numberOfComics;
 
-        try {
-            for (int i = 0; i < reservationList.size(); i++) {
-                numberOfComics = 1;
-                if (comicNumberMap.containsKey(reservationList.get(i).getComic().getComicID())) {
-                    numberOfComics = comicNumberMap.get(reservationList.get(i).getComic().getComicID());
-                    //System.out.println("number of cimocs" + numberOfComics);
-                    ++numberOfComics;
-                }
-                comicNumberMap.put(reservationList.get(i).getComic().getComicID(), numberOfComics);
+
+        for (int i = 0; i < reservationList.size(); i++) {
+            numberOfComics = 1;
+            if (comicNumberMap.containsKey(reservationList.get(i).getComic().getComicID())) {
+                numberOfComics = comicNumberMap.get(reservationList.get(i).getComic().getComicID());
+                //System.out.println("number of cimocs" + numberOfComics);
+                ++numberOfComics;
             }
-            return comicNumberMap;
-        } catch (Exception e) {
-            System.out.println("ERROR AAA: " + e.getMessage());
-            throw new MapDoesNotExistException("There is a problem with this map!");
+            comicNumberMap.put(reservationList.get(i).getComic().getComicID(), numberOfComics);
         }
+        return comicNumberMap;
+
     }
 }
 

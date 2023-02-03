@@ -12,6 +12,7 @@ import sorter.CustomerSorter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ReservationAddingController {
@@ -38,10 +39,17 @@ public class ReservationAddingController {
         allComics = HelloApplication.getDataSource().readAllComicsFromDatabase();
         allReservations = HelloApplication.getDataSource().readAllReservationsFromDatabase();
 
-        Collections.sort(allCustomers, new CustomerSorter());
+
+        allCustomers.sort((c1, c2) -> c1.lastName().compareTo(c2.lastName()));
         pickedCustomer.setItems(FXCollections.observableList(allCustomers));
 
-        Collections.sort(allComics, new ComicSorter());
+        allComics.sort((c1, c2) -> {
+            int comp = c1.getBookName().compareTo(c2.getBookName());
+            if (comp == 0) {
+                comp = c1.getComicID().compareTo(c2.getComicID());
+            }
+            return comp;
+        });
         comicsList.setItems(FXCollections.observableList(allComics));
 
         customerNameColumn.setCellValueFactory(data -> new SimpleStringProperty((data.getValue().getCustomer().toString())));

@@ -69,15 +69,6 @@ public class MenuViewAdminController {
         HelloApplication.showWindow("reservation-update-view.fxml");
     }
 
-    public void openUserPasswordChange() {
-        if (helperUser.getRole().equals(UserRole.ADMINISTRATION_ROLE)) {
-            HelloApplication.showWindow("user-password-change-view.fxml");
-        } else {
-            var alert = new Alert(Alert.AlertType.ERROR, "Only admin");
-            alert.setTitle("Error while logging in the application!");
-            alert.show();
-        }
-    }
 
     public void openUserChangeTracker() {
         if (helperUser.getRole().equals(UserRole.ADMINISTRATION_ROLE)) {

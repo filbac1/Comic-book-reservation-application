@@ -2,8 +2,7 @@ package thread;
 
 import data.DataSource;
 import entity.Comic;
-import entity.User;
-import exception.DeletedElementException;
+import exception.NoSuchComicID;
 import exception.MapDoesNotExistException;
 import javafx.stage.Stage;
 import main.HelloApplication;
@@ -38,7 +37,7 @@ public class ComicQuantityReservedThread implements Runnable {
         Comic randComic = null;
 
         for (Comic c : allComics) {
-            if(c.getComicID().equals(randComicID)) {
+            if (c.getComicID().equals(randComicID)) {
                 randComic = c;
                 break;
             }
@@ -49,7 +48,7 @@ public class ComicQuantityReservedThread implements Runnable {
         int randomValue = 0;
         try {
             randomValue = comicNumberMap.get(randComicID);
-        } catch (DeletedElementException e) {
+        } catch (NoSuchComicID e) {
             e.printStackTrace();
         } catch (NullPointerException ex) {
             ex.getMessage();

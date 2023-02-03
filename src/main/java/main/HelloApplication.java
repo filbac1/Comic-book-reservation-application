@@ -3,6 +3,7 @@ package main;
 import data.DataSource;
 import data.DatabaseAndFileDataSource;
 import exception.DataSourceException;
+import exception.NoSuchDBPropertiesFile;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -16,7 +17,7 @@ import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import thread.ComicQuantityReservedThread;
-import thread.NumberOfComicsReservedThread;
+import thread.LastChangeThread;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -47,12 +48,19 @@ public class HelloApplication extends Application {
         randomComicInfo.setCycleCount(Timeline.INDEFINITE);
         randomComicInfo.play();
 
-        var randomComicAlert = new Timeline(
+        /*var randomComicAlert = new Timeline(
                 new KeyFrame(Duration.seconds(60), e -> Platform.runLater(new NumberOfComicsReservedThread()))
         );
 
         randomComicAlert.setCycleCount(Timeline.INDEFINITE);
-        randomComicAlert.play();
+        randomComicAlert.play();*/
+
+        var lastChangeThread = new Timeline(
+                new KeyFrame(Duration.seconds(30), e -> Platform.runLater(new LastChangeThread()))
+        );
+
+        lastChangeThread.setCycleCount(Timeline.INDEFINITE);
+        lastChangeThread.play();
     }
 
     public static void main(String[] args) {
@@ -63,6 +71,8 @@ public class HelloApplication extends Application {
             logger.error("Couldn't connect to database", e);
         } catch (IOException e) {
             logger.error("Couldn't find database properties file: " + DB_PROPERTIES_PATH, e);
+        } catch (NoSuchDBPropertiesFile e) {
+            throw new RuntimeException(e);
         }
     }
 

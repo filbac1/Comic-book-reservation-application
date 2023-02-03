@@ -73,13 +73,7 @@ public class Change<T> {
 
     @Override
     public String toString() {
-        return "Change{" +
-                "objectChanged=" + objectChanged +
-                ", oldValue=" + oldValue +
-                ", newValue=" + newValue +
-                ", user=" + user +
-                ", localDateTime=" + localDateTime +
-                '}';
+        return objectChanged + " " + oldValue + " " + newValue + " " + user + " " + localDateTime;
     }
 
     public Change setObjectChangedBuilder(T obj)

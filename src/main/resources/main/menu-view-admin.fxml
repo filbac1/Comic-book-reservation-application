@@ -36,7 +36,6 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="User">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#openUserPasswordChange" text="Change user password" />
 						<MenuItem mnemonicParsing="false" onAction="#openUserChangeTracker" text="Change tracker" />
 					</items>
 				</Menu>
