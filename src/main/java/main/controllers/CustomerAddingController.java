@@ -3,7 +3,6 @@ package main.controllers;
 import entity.Change;
 import entity.Customer;
 import entity.User;
-import exception.DataSourceException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import main.HelloApplication;
-import sorter.CustomerSorter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

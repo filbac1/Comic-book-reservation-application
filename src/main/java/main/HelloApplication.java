@@ -18,13 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import thread.ComicQuantityReservedThread;
 import thread.LastChangeThread;
+import thread.NumberOfComicsReservedThread;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class HelloApplication extends Application {
 
-    private static final Logger logger = LoggerFactory.getLogger(HelloApplication.class);
+    public static final Logger logger = LoggerFactory.getLogger(HelloApplication.class);
 
     private static Stage appStage;
     private static DataSource dataSource;
@@ -48,12 +49,12 @@ public class HelloApplication extends Application {
         randomComicInfo.setCycleCount(Timeline.INDEFINITE);
         randomComicInfo.play();
 
-        /*var randomComicAlert = new Timeline(
-                new KeyFrame(Duration.seconds(60), e -> Platform.runLater(new NumberOfComicsReservedThread()))
+        var randomComicAlert = new Timeline(
+                new KeyFrame(Duration.seconds(90), e -> Platform.runLater(new NumberOfComicsReservedThread()))
         );
 
         randomComicAlert.setCycleCount(Timeline.INDEFINITE);
-        randomComicAlert.play();*/
+        randomComicAlert.play();
 
         var lastChangeThread = new Timeline(
                 new KeyFrame(Duration.seconds(30), e -> Platform.runLater(new LastChangeThread()))
@@ -72,6 +73,7 @@ public class HelloApplication extends Application {
         } catch (IOException e) {
             logger.error("Couldn't find database properties file: " + DB_PROPERTIES_PATH, e);
         } catch (NoSuchDBPropertiesFile e) {
+            logger.error("Problem with getting the Properties file!");
             throw new RuntimeException(e);
         }
     }
@@ -86,6 +88,7 @@ public class HelloApplication extends Application {
             appStage.setScene(new Scene(window));
             appStage.show();
         } catch (IOException e) {
+            logger.error("Problem with .fxml file reading!");
             e.printStackTrace();
         }
     }

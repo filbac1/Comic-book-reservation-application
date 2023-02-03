@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/table-screens.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.HelloUserController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/hello-user.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.HelloUserController">
    <children>
       <Label fx:id="usernameWelcomeField" alignment="CENTER" layoutX="-4.0" layoutY="40.0" prefHeight="262.0" prefWidth="606.0" text="Label">
          <font>

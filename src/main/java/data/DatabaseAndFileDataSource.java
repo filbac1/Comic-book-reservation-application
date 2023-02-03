@@ -42,7 +42,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassoword);
         } catch (SQLException e) {
-            logger.error("AAAA");
+            logger.error("Problem with SQL loading...");
             throw new DataSourceException(e);
 
         }
@@ -77,8 +77,10 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 userSet.add(user);
             }
         } catch (FileNotFoundException e) {
+            logger.error("Problem with file...");
             throw new RuntimeException("File not found: " + userFile);
         } catch (IOException e) {
+            logger.error("IOE exception!");
             throw new RuntimeException(e);
         }
         return userSet;
@@ -103,8 +105,10 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 changeList.add(change);
             }
         } catch (FileNotFoundException e) {
+            logger.error("Problem with file...");
             throw new RuntimeException("File not found: " + changeFile);
         } catch (IOException e) {
+            logger.error("IOE exception!");
             throw new RuntimeException(e);
         }
         return changeList;
@@ -124,6 +128,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         try {
             Files.writeString(CHANGES_FILE, out);
         } catch (IOException e) {
+            logger.error("IOE exception!");
             throw new RuntimeException(e);
         }
     }
@@ -160,6 +165,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 customerList.add(helpingCustomer);
             }
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
         return customerList;
@@ -176,6 +182,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             customerUpdateStatement.executeUpdate();
 
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -189,6 +196,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
             customerUpdateStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -206,11 +214,12 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 alert.show();
             }
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
 
-    private synchronized List<Comic> loadAllComicsFromDatabase() {
+    private List<Comic> loadAllComicsFromDatabase() {
         List<Comic> comicList = new ArrayList<>();
 
         try {
@@ -231,6 +240,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 comicList.add(helpingComic);
             }
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
         return comicList;
@@ -256,6 +266,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
             comicUpdateStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -274,6 +285,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 alert.show();
             }
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -290,6 +302,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             comicUpdateStatement.executeUpdate();
 
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -314,6 +327,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 reservationList.add(helpingReservation);
             }
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
         return reservationList;
@@ -335,6 +349,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 return Optional.of(helpingCustomer);
             }
         } catch (SQLException ex) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(ex);
         }
 
@@ -362,6 +377,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 return Optional.of(helpingComic);
             }
         } catch (SQLException ex) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(ex);
         }
 
@@ -377,6 +393,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
             reservationUpdateStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -395,6 +412,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
                 alert.show();
             }
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -410,6 +428,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             reservationUpdateStatement.executeUpdate();
 
         } catch (SQLException e) {
+            logger.error("Problem with SQL or connection...");
             throw new RuntimeException(e);
         }
     }
@@ -444,7 +463,7 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
     }
 
     @Override
-    public synchronized List<Comic> readAllComicsFromDatabase() {
+    public List<Comic> readAllComicsFromDatabase() {
         return loadAllComicsFromDatabase();
     }
 
@@ -465,11 +484,6 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
 
     @Override
     public List<Reservation> readAllReservationsFromDatabase() {
-        return loadAllReservationsFromDatabase();
-    }
-
-    @Override
-    public synchronized List<Reservation> readAllReservationsFromDatabaseSynchronized() {
         return loadAllReservationsFromDatabase();
     }
 
@@ -529,13 +543,12 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
         try {
             connection.close();
         } catch (SQLException nothing) {
-
+            logger.error("Problem with SQL or connection...");
         }
     }
     @Override
-    public synchronized Map<Integer, Integer> getNumberOfComics() {
-        List<Reservation> reservationList = readAllReservationsFromDatabaseSynchronized();
-        System.out.println(reservationList);
+    public Map<Integer, Integer> getNumberOfComics() {
+        List<Reservation> reservationList = readAllReservationsFromDatabase();
         Map<Integer, Integer> comicNumberMap = new HashMap<>();
         Integer numberOfComics;
 
@@ -544,7 +557,6 @@ public non-sealed class DatabaseAndFileDataSource implements DataSource, Closeab
             numberOfComics = 1;
             if (comicNumberMap.containsKey(reservationList.get(i).getComic().getComicID())) {
                 numberOfComics = comicNumberMap.get(reservationList.get(i).getComic().getComicID());
-                //System.out.println("number of cimocs" + numberOfComics);
                 ++numberOfComics;
             }
             comicNumberMap.put(reservationList.get(i).getComic().getComicID(), numberOfComics);

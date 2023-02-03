@@ -20,7 +20,7 @@ public class HelloUserController {
     }
 
     public void displayName(User user) {
-        usernameWelcomeField.setText("Hello: " + currentUser.getUsername() + " :-)");
+        usernameWelcomeField.setText("Hello " + currentUser.getUsername() + " :-)");
     }
 
     public void enterApplication() {

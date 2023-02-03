@@ -9,6 +9,8 @@ import main.HelloApplication;
 
 import java.util.*;
 
+import static main.HelloApplication.logger;
+
 public class ComicQuantityReservedThread implements Runnable {
     private final Stage stage;
 
@@ -25,15 +27,14 @@ public class ComicQuantityReservedThread implements Runnable {
         try {
             comicNumberMap = dataSource.getNumberOfComics();
         } catch (MapDoesNotExistException e) {
+            logger.error("Problem with map existance");
             throw new RuntimeException(e);
         }
 
         Random rand = new Random();
         List<Integer> comicIDList = new ArrayList<>(comicNumberMap.keySet());
-        System.out.println(comicIDList);
 
         Integer randComicID = comicIDList.get(rand.nextInt(comicIDList.size()));
-        System.out.println(randComicID);
         Comic randComic = null;
 
         for (Comic c : allComics) {
@@ -43,14 +44,14 @@ public class ComicQuantityReservedThread implements Runnable {
             }
         }
 
-        System.out.println(randComic);
-
         int randomValue = 0;
         try {
             randomValue = comicNumberMap.get(randComicID);
         } catch (NoSuchComicID e) {
+            logger.error("Wrong comic ID provided!");
             e.printStackTrace();
         } catch (NullPointerException ex) {
+            logger.error("Null pointer mistake!");
             ex.getMessage();
         }
 

@@ -3,16 +3,12 @@ package main.controllers;
 import entity.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.HelloApplication;
-import sorter.ComicSorter;
-import sorter.CustomerSorter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,10 +37,16 @@ public class ReservationUpdateController {
         allComics = HelloApplication.getDataSource().readAllComicsFromDatabase();
         allReservations = HelloApplication.getDataSource().readAllReservationsFromDatabase();
 
-        Collections.sort(allCustomers, new CustomerSorter());
+        allCustomers.sort((c1, c2) -> c1.lastName().compareTo(c2.lastName()));
         pickedCustomer.setItems(FXCollections.observableList(allCustomers));
 
-        Collections.sort(allComics, new ComicSorter());
+        allComics.sort((c1, c2) -> {
+            int comp = c1.getBookName().compareTo(c2.getBookName());
+            if (comp == 0) {
+                comp = c1.getComicID().compareTo(c2.getComicID());
+            }
+            return comp;
+        });
         comicsList.setItems(FXCollections.observableList(allComics));
 
         customerNameColumn.setCellValueFactory(data -> new SimpleStringProperty((data.getValue().getCustomer().toString())));

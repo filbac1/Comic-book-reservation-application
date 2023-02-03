@@ -1,0 +1,22 @@
+.label {
+    -fx-font-size: 25.0 px;
+    -fx-font-family: "Industrial Sans";
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 10.0px;
+}
+
+.root {
+    -fx-background-color: yellow;
+}
+
+.button {
+    -fx-background-color: black;
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-font-family: "Industrial Sans";
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 10 20 10 20;
+}

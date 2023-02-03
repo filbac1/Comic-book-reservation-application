@@ -23,7 +23,7 @@
 }
 
 .label {
-    -fx-font-size: 14.0 pt;
+    -fx-font-size: 14.0 px;
     -fx-font-family: "Industrial Sans";
     -fx-text-fill: black;
     -fx-font-weight: bold;
@@ -39,10 +39,9 @@
     -fx-background-radius: 5,4,3,5;
     -fx-background-insets: 0,1,2,0;
     -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
     -fx-font-family: "Industrial Sans";
     -fx-text-fill: white;
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
     -fx-padding: 10 20 10 20;
 }
 
