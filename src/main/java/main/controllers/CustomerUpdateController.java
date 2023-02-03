@@ -46,6 +46,7 @@ public class CustomerUpdateController {
     public void update() {
         Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
 
+
         ArrayList<String> messages = new ArrayList<>();
 
         if (firstName.getText().isBlank() && lastName.getText().isBlank()) {
@@ -82,15 +83,18 @@ public class CustomerUpdateController {
 
                 HelloApplication.getDataSource().updateCustomerInDatabase(customerDB);
 
-                if (!HelloApplication.getDataSource().customerConnectedToReservation(customerDB)) {
-                    Change changeOne = new Change("firstName", selectedCustomer.firstName(), customerDB.firstName(), helperUser, LocalDateTime.now());
-                    Change changeTwo = new Change("lastName", selectedCustomer.lastName(), customerDB.lastName(), helperUser, LocalDateTime.now());
 
-                    List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
-                    changeList.add(changeOne);
-                    changeList.add(changeTwo);
-                    HelloApplication.getDataSource().writeChanges(changeList);
-                }
+                Change changeOne = new Change("firstName", selectedCustomer.firstName(), customerDB.firstName(), helperUser, LocalDateTime.now());
+                Change changeTwo = new Change("lastName", selectedCustomer.lastName(), customerDB.lastName(), helperUser, LocalDateTime.now());
+
+                List<Change> changeList = HelloApplication.getDataSource().loadAllChanges();
+                changeList.add(changeOne);
+                changeList.add(changeTwo);
+                HelloApplication.getDataSource().writeChanges(changeList);
+
+
+                firstName.clear();
+                lastName.clear();
 
                 initialize();
         } else {

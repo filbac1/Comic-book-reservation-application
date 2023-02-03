@@ -90,6 +90,9 @@ public class ComicAddingController {
             alert.setTitle("Error while adding a new customer!");
             alert.show();
         }
+        comicName.clear();
+        ISBN.clear();
+        pickedPublisher.getSelectionModel().clearSelection();
 
         initialize();
     }

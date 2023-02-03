@@ -105,6 +105,10 @@ public class ComicUpdateController {
                     changeList.add(changeThree);
                     HelloApplication.getDataSource().writeChanges(changeList);
 
+                    comicName.clear();
+                    ISBN.clear();
+                    pickedPublisher.getSelectionModel().clearSelection();
+
                     initialize();
                 }
         } else {

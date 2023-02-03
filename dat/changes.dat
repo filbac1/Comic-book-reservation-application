@@ -121,3 +121,30 @@ reservationCustomer;null;Žderić Ivan;1;3.2.2023. 15:28
 reservationComic;null;The Amazing Spiderman;1;3.2.2023. 15:28
 reservationCustomer;Žderić Ivan;null;1;3.2.2023. 15:29
 reservationComic;The Amazing Spiderman;null;1;3.2.2023. 15:29
+firstName;null;Milan;1;3.2.2023. 17:01
+lastName;null;Okić;1;3.2.2023. 17:01
+firstName;null;Alen;1;3.2.2023. 17:04
+lastName;null;Babarić;1;3.2.2023. 17:04
+firstName;Alen;null;1;3.2.2023. 17:04
+lastName;Babarić;null;1;3.2.2023. 17:04
+firstName;Stjepan;Stjepan;1;3.2.2023. 17:09
+lastName;Kosak;Kos;1;3.2.2023. 17:09
+comicName;null;Blek 1;1;3.2.2023. 17:12
+pickedPublisher;null;LUDENS;1;3.2.2023. 17:12
+ISBN;null;9385437584921;1;3.2.2023. 17:12
+comicName;Blek 1;Mark 1;1;3.2.2023. 17:12
+pickedPublisher;LUDENS;LUDENS;1;3.2.2023. 17:12
+ISBN;9385437584921;754839675843;1;3.2.2023. 17:12
+comicName;Mark 1;Mark 1;1;3.2.2023. 17:13
+pickedPublisher;LUDENS;LUDENS;1;3.2.2023. 17:13
+ISBN;754839675843;4965867548324;1;3.2.2023. 17:13
+reservationCustomer;null;Šimić Andrej;1;3.2.2023. 17:14
+reservationComic;null;The Amazing Spiderman;1;3.2.2023. 17:14
+reservationCustomer;null;Majer Herman;1;3.2.2023. 17:14
+reservationComic;null;The Amazing Spiderman;1;3.2.2023. 17:14
+reservationCustomer;null;Puhić Timon;1;3.2.2023. 17:17
+reservationComic;null;The Amazing Spiderman;1;3.2.2023. 17:17
+reservationCustomer;Šimić Andrej;null;1;3.2.2023. 17:17
+reservationComic;The Amazing Spiderman;null;1;3.2.2023. 17:17
+reservationCustomer;Miloš Ana;Šimić Andrej;1;3.2.2023. 17:17
+reservationComic;Mali Rendžer 1;The Amazing Spiderman;1;3.2.2023. 17:17

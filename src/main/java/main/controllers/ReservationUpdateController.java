@@ -102,6 +102,9 @@ public class ReservationUpdateController {
                 changeList.add(changeTwo);
                 HelloApplication.getDataSource().writeChanges(changeList);
 
+                pickedCustomer.getSelectionModel().clearSelection();
+                comicsList.getSelectionModel().clearSelection();
+
                 initialize();
             }
         } else {

@@ -48,6 +48,7 @@ public class CustomerAddingController {
     public void add() {
         ArrayList<String> messages = new ArrayList<>();
 
+
         if (firstName.getText().isBlank()) {
             messages.add("First name is empty!");
         }
@@ -78,6 +79,9 @@ public class CustomerAddingController {
             alert.setTitle("Error while adding a new customer!");
             alert.show();
         }
+
+        firstName.clear();
+        lastName.clear();
 
         initialize();
     }

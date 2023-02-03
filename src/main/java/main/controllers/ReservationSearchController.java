@@ -3,6 +3,8 @@ package main.controllers;
 import entity.Comic;
 import entity.Customer;
 import entity.Reservation;
+import entity.User;
+import exception.MapDoesNotExistException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -13,7 +15,9 @@ import javafx.scene.control.TableView;
 import main.HelloApplication;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReservationSearchController {
 
@@ -57,9 +61,11 @@ public class ReservationSearchController {
 
         reservationTableView.setItems(FXCollections.observableList(allReservations));
         reservationTableView.getSortOrder().addAll(customerNameColumn, comicNameColumn);
+        tableInfo.setText(null);
+        tableInfo.setUnderline(true);
     }
 
-    public void search() {
+    public void search() throws MapDoesNotExistException {
         List<Reservation> filtered = new ArrayList<>();
 
         if (pickedCustomer.getValue() != null && comicsList.getValue() == null) {
@@ -82,6 +88,31 @@ public class ReservationSearchController {
         }
 
         reservationTableView.setItems(FXCollections.observableList(filtered));
+
+        if (comicsList.getValue() != null) {
+            String text = setNumberOfSpecifiedComic(comicsList.getValue());
+            tableInfo.setText(text);
+        }
+
+        pickedCustomer.getSelectionModel().clearSelection();
+        comicsList.getSelectionModel().clearSelection();
+    }
+
+    private String setNumberOfSpecifiedComic(Comic comic) throws MapDoesNotExistException {
+        Map<Integer, Integer> comicMap = HelloApplication.getDataSource().getNumberOfComics();
+        Integer comicQuantity;
+
+        if (comicMap.containsKey(comic.getComicID().intValue())) {
+            comicQuantity = comicMap.get(comic.getComicID().intValue());
+        } else {
+            comicQuantity = 0;
+        }
+
+        if (comicQuantity == 1) {
+            return String.format(comicQuantity + " copy of " + comic.getBookName() + " is reserved!");
+        } else {
+            return String.format(comicQuantity + " copies of " + comic.getBookName() + " is reserved!");
+        }
     }
 
 }

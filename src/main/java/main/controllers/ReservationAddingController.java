@@ -84,6 +84,9 @@ public class ReservationAddingController {
             changeList.add(changeTwo);
             HelloApplication.getDataSource().writeChanges(changeList);
 
+            pickedCustomer.getSelectionModel().clearSelection();
+            comicsList.getSelectionModel().clearSelection();
+
             initialize();
         } else {
             String m = String.join("\n", messages);
