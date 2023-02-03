@@ -23,7 +23,7 @@ public class ReservationSearchController {
     @FXML
     private ChoiceBox<Customer> pickedCustomer;
     @FXML
-    private ComboBox<Comic> comicsList;
+    private ChoiceBox<Comic> comicsList;
 
     @FXML
     private TableView<Reservation> reservationTableView;

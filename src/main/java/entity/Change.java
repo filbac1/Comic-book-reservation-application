@@ -81,4 +81,34 @@ public class Change<T> {
                 ", localDateTime=" + localDateTime +
                 '}';
     }
+
+    public Change setObjectChangedBuilder(T obj)
+    {
+        this.objectChanged = obj;
+        return this;
+    }
+
+    public Change setOldValueBuilder(T obj)
+    {
+        this.oldValue = obj;
+        return this;
+    }
+
+    public Change setNewValueBuilder(T obj)
+    {
+        this.newValue = obj;
+        return this;
+    }
+
+    public Change setUserWhoChangedBuilder(User obj)
+    {
+        this.user = obj;
+        return this;
+    }
+
+    public Change setLocalDateTimeBuilder(LocalDateTime obj)
+    {
+        this.localDateTime = obj;
+        return this;
+    }
 }

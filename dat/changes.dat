@@ -104,3 +104,5 @@ firstName;null;Mario;1;3.2.2023. 11:17
 lastName;null;Cvetić;1;3.2.2023. 11:17
 firstName;Mario;null;1;3.2.2023. 11:17
 lastName;Cvetić;null;1;3.2.2023. 11:17
+reservationCustomer;null;Vuković Ante;1;3.2.2023. 11:25
+reservationComic;null;Zagor 1;1;3.2.2023. 11:25

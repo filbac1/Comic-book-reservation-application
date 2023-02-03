@@ -30,4 +30,10 @@ public abstract class Book {
     public int hashCode() {
         return Objects.hash(bookName);
     }
+
+    public Book setBookNameBuilder(String name)
+    {
+        this.bookName = name;
+        return this;
+    }
 }

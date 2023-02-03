@@ -59,4 +59,22 @@ public class Reservation<T extends Customer, V extends Comic> {
                 ", comic=" + comic +
                 '}';
     }
+
+    public Reservation setReservationIDBuilder(Integer obj)
+    {
+        this.reservationID = obj;
+        return this;
+    }
+
+    public Reservation setReservationCustomerBuilder(T obj)
+    {
+        this.customer = obj;
+        return this;
+    }
+
+    public Reservation setReservationComicBuilder(V obj)
+    {
+        this.comic = obj;
+        return this;
+    }
 }

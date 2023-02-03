@@ -77,10 +77,34 @@ public final class User implements UserReader {
 
     @Override
     public boolean checkPasswordStrength(User user) {
-        if(user.getPassword().length() < 5) {
+        if(user.getPassword().length() < 3) {
             return false;
         } else {
             return true;
         }
+    }
+
+    public User setUserIDBuilder(Long obj)
+    {
+        this.id = obj;
+        return this;
+    }
+
+    public User setUserUsernameBuilder(String obj)
+    {
+        this.username = obj;
+        return this;
+    }
+
+    public User setUserPasswordBuilder(String obj)
+    {
+        this.password = obj;
+        return this;
+    }
+
+    public User setUserRoleBuilder(UserRole obj)
+    {
+        this.role = obj;
+        return this;
     }
 }

@@ -60,4 +60,22 @@ public class Comic extends Book {
     public String toString() {
         return bookName;
     }
+
+    public Comic setComicIDBuilder(Integer obj)
+    {
+        this.comicID = obj;
+        return this;
+    }
+
+    public Comic setComicPublisherBuilder(Publishers obj)
+    {
+        this.publisher = obj;
+        return this;
+    }
+
+    public Comic setISBNBuilder(ISBN obj)
+    {
+        this.isbn = obj;
+        return this;
+    }
 }

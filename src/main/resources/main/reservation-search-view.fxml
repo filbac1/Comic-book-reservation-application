@@ -51,7 +51,7 @@
         <ChoiceBox fx:id="pickedCustomer" maxWidth="150.0" prefHeight="10.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
         <Label text="List of comics: " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-        <ComboBox fx:id="comicsList" maxWidth="150.0" prefHeight="10.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <ChoiceBox fx:id="comicsList" maxWidth="150.0" prefHeight="10.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
         <Label fx:id="tableInfo" alignment="CENTER" prefHeight="42.0" prefWidth="591.0" text="Label" textFill="#ea0c08" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
 

@@ -42,4 +42,7 @@ public record Customer(Integer customerID,String firstName, String lastName) {
     public String toString() {
         return lastName + " " + firstName;
     }
+
+    // Can't implement builder pattern because of record
+
 }
